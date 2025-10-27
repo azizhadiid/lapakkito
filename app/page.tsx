@@ -52,7 +52,7 @@ export default function HomePage() {
       <main>
         {/* === Hero Section === */}
         {/* Menggunakan hex code #F7F6F6 untuk background */}
-        <section className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 bg-[#F7F6F6] overflow-hidden">
+        <section className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 bg-[#EFEFEF] overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Kolom Teks */}
