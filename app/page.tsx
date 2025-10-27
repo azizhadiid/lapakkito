@@ -49,35 +49,32 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
 
-      <main>
+      <main className="bg-[#EFEFEF]">
         {/* === Hero Section === */}
-        {/* Menggunakan hex code #F7F6F6 untuk background */}
         <section className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 bg-[#EFEFEF] overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               {/* Kolom Teks */}
               <div className="text-center lg:text-left">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                   Selamat Datang di
                   <br />
-                  {/* Menggunakan hex code #D9534F untuk teks */}
                   <span className="text-[#D9534F]">Lapak Kito</span>
                 </h1>
                 <p className="mt-4 text-lg md:text-xl text-gray-600 max-w-lg mx-auto lg:mx-0">
-                  Dukung UMKM untuk pertumbuhan ekonomi daerah
+                  Dukung UMKM untuk pertumbuhan ekonomi daerah. Temukan UMKM
+                  lokal terbaik di Kota Jambi hanya dengan beberapa klik.
                 </p>
-                {/* Menggunakan hex code #D9534F dan hover #C9302C */}
-                <Button className="mt-8 bg-[#D9534F] text-white hover:bg-[#C9302C] rounded-full px-8 py-3 text-lg font-semibold transition-transform hover:scale-105">
+                <Button className="mt-8 bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105">
                   Lihat UMKM!
                 </Button>
               </div>
-
               {/* Kolom Gambar */}
-              <div className="relative h-64 lg:h-full min-h-[300px]">
+              <div className="relative h-64 lg:h-full min-h-[300px] lg:ml-48">
                 <img
                   src="/images/trade.png"
                   alt="Ilustrasi UMKM"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain animate-float-custom"
                 />
               </div>
             </div>
@@ -85,50 +82,45 @@ export default function HomePage() {
         </section>
 
         {/* === "Bagaimana Ini Bekerja" Section === */}
-        <section className="py-16 md:py-24 bg-white relative -mt-16 z-10">
+        <section className="py-16 md:py-24 relative -mt-16 z-10">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <Card className="bg-white shadow-xl rounded-2xl p-8 md:p-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
+            {/* HANYA CARD INI YANG BERWARNA PUTIH */}
+            <Card className="bg-[#F7F6F6] shadow-xl rounded-2xl p-8 md:p-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-yellow-950">
                 Bagaimana Ini Bekerja
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
                 {/* Card 1: Temukan */}
-                <div className="bg-gray-100 rounded-lg p-6 text-center shadow-sm">
-                  {/* Menggunakan hex code #D9534F dengan opacity 10% */}
-                  <div className="flex justify-center items-center h-16 w-16 bg-[#D9534F]/10 rounded-full mx-auto mb-4">
-                    <Search className="w-8 h-8 text-[#D9534F]" />
+                <div className="bg-[#EFEFEF] rounded-lg p-6 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
+                  <div className="flex justify-center items-center h-16 w-16 bg-[#4E4039]/10 rounded-lg mx-auto mb-4">
+                    <Search className="w-8 h-8 text-[#4E4039]" />
                   </div>
-                  <h3 className="text-xl font-semibold mt-4 mb-2 text-gray-800">Temukan</h3>
-                  <p className="text-sm text-gray-600">
-                    Jelajahi UMKM Jambi dengan mudah. Temukan produk atau jasa
-                    yang Anda butuhkan menggunakan fitur pencarian dan kategori.
+                  <h3 className="text-xl font-semibold mt-4 mb-2 text-[#4E4039]">Temukan</h3>
+                  <p className="text-sm text-[#4E4039]">
+                    Jelajahi direktori UMKM Jambi dengan mudah. LapakKito membantu kamu menemukan pelaku usaha lokal yang sesuai  dengan kebutuhanmu. Cukup cari berdasarkan kategori, lokasi, atau nama usaha—semua informasi tersedia dalam satu tempat.
                   </p>
                 </div>
 
                 {/* Card 2: Hubungi */}
-                <div className="bg-gray-100 rounded-lg p-6 text-center shadow-sm">
-                  <div className="flex justify-center items-center h-16 w-16 bg-[#D9534F]/10 rounded-full mx-auto mb-4">
-                    <Handshake className="w-8 h-8 text-[#D9534F]" />
+                <div className="bg-[#EFEFEF] rounded-lg p-6 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
+                  <div className="flex justify-center items-center h-16 w-16 bg-[#4E4039]/10 rounded-lg mx-auto mb-4">
+                    <Handshake className="w-8 h-8 text-[#4E4039]" />
                   </div>
-                  <h3 className="text-xl font-semibold mt-4 mb-2 text-gray-800">Hubungi</h3>
-                  <p className="text-sm text-gray-600">
-                    Ingin tahu lebih lanjut? Hubungi penjual atau penyedia jasa
-                    langsung melalui informasi kontak yang tersedia di halaman
-                    detail.
+                  <h3 className="text-xl font-semibold mt-4 mb-2 text-[#4E4039]">Hubungi</h3>
+                  <p className="text-sm text-[#4E4039]">
+                    Ingin tahu lebih lanjut tentang produk atau layanan? Gunakan fitur Hubungi untuk mengirim pesan, menelepon, atau mengakses media sosial UMKM pilihanmu. LapakKito memudahkan komunikasi agar transaksi dan kolaborasi berjalan lancar.
                   </p>
                 </div>
 
                 {/* Card 3: Transaksi */}
-                <div className="bg-gray-100 rounded-lg p-6 text-center shadow-sm">
-                  <div className="flex justify-center items-center h-16 w-16 bg-[#D9534F]/10 rounded-full mx-auto mb-4">
-                    <CreditCard className="w-8 h-8 text-[#D9534F]" />
+                <div className="bg-[#EFEFEF] rounded-lg p-6 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
+                  <div className="flex justify-center items-center h-16 w-16 bg-[#4E4039]/10 rounded-lg mx-auto mb-4">
+                    <CreditCard className="w-8 h-8 text-[#4E4039]" />
                   </div>
-                  <h3 className="text-xl font-semibold mt-4 mb-2 text-gray-800">Transaksi</h3>
-                  <p className="text-sm text-gray-600">
-                    LapakKito mendukung transaksi langsung antara penjual dan
-                    pembeli. Lakukan kesepakatan dan transaksi secara aman dan
-                    nyaman.
+                  <h3 className="text-xl font-semibold mt-4 mb-2 text-[#4E4039]">Transaksi</h3>
+                  <p className="text-sm text-[#4E4039]">
+                    LapakKito mendukung transaksi langsung antara pembeli dan pelaku usaha. Cukup klik tombol Hubungi atau Order Sekarang untuk terhubung dan mulai belanja. Tanpa login, tanpa ribet langsung ke sumbernya.
                   </p>
                 </div>
 

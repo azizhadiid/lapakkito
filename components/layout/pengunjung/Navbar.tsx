@@ -20,11 +20,11 @@ export function Navbar() {
         { name: "Kontak", href: "/kontak" },
     ]
 
-    // 2. Buat state untuk melacak status scroll
+    // state untuk melacak status scroll
     const [isScrolled, setIsScrolled] = useState(false)
     const pathname = usePathname()
 
-    // 3. Buat useEffect untuk menambahkan event listener saat scroll
+    // useEffect untuk menambahkan event listener saat scroll
     useEffect(() => {
         const handleScroll = () => {
             // Jika scrollY > 10 piksel, set isScrolled menjadi true
@@ -42,15 +42,14 @@ export function Navbar() {
         return () => {
             window.removeEventListener("scroll", handleScroll)
         }
-    }, []) // Array dependensi kosong berarti efek ini hanya berjalan sekali (saat mount)
+    }, [])
 
     return (
-        // Menggunakan hex code #F7F6F6 secara langsung
         <nav className={`
                 fixed top-0 left-0 w-full z-50 transition-colors duration-300
                 ${isScrolled
-                ? 'bg-[#F7F6F6] shadow-md' // Kelas saat di-scroll (putih + bayangan)
-                : 'bg-[#EFEFEF] lg:bg-transparent' // Kelas saat di atas (seperti kode Anda)
+                ? 'bg-[#F7F6F6] shadow-md'
+                : 'bg-[#EFEFEF] lg:bg-transparent'
             }
             `}>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,7 +61,7 @@ export function Navbar() {
 
                     <div className="hidden lg:flex items-center gap-6">
                         {navItems.map((item) => {
-                            // 3. Cek apakah link ini sedang aktif
+                            // Cek apakah link ini sedang aktif
                             const isActive = pathname === item.href
 
                             return (
@@ -93,7 +92,6 @@ export function Navbar() {
                     </div>
 
                     <div className="hidden lg:block">
-                        {/* Menggunakan hex code #D9534F dan hover #C9302C */}
                         <Button className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2">
                             Register UMKM
                         </Button>
@@ -106,14 +104,16 @@ export function Navbar() {
                                     <Menu className="h-6 w-6 text-yellow-950" />
                                 </Button>
                             </SheetTrigger>
-                            {/* Menggunakan hex code #F7F6F6 untuk background mobile menu */}
+
                             <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#F7F6F6]">
+                                {/* untuk mengatasi error pada console website */}
                                 <SheetHeader className="sr-only">
                                     <SheetTitle>Menu Utama</SheetTitle>
                                     <SheetDescription>
                                         Navigasi utama website Lapak Kito.
                                     </SheetDescription>
                                 </SheetHeader>
+                                {/* //////////////////////////////////////////////// */}
 
                                 <div className="flex flex-col h-full p-6">
                                     <Link href="/" className="flex items-center mb-6">
@@ -132,8 +132,8 @@ export function Navbar() {
                                                     className={`
                                                         text-lg font-semibold transition-colors
                                                         ${isActive
-                                                            ? 'text-[#E65A4B]' // <-- Kelas untuk link AKTIF (warna merah)
-                                                            : 'text-yellow-950 hover:text-black' // <-- Kelas untuk link non-aktif
+                                                            ? 'text-[#E65A4B]'
+                                                            : 'text-yellow-950 hover:text-black'
                                                         }
         `}
                                                 >
@@ -143,7 +143,6 @@ export function Navbar() {
                                         })}
                                     </div>
 
-                                    {/* Menggunakan hex code #D9534F dan hover #C9302C */}
                                     <Button className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2 mt-auto">
                                         Register UMKM
                                     </Button>
