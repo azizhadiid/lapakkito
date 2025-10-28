@@ -92,7 +92,7 @@ export function Navbar() {
                     </div>
 
                     <div className="hidden lg:block">
-                        <Button className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2">
+                        <Button className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2 transition-all duration-200 ease-in-out hover:scale-105">
                             Register UMKM
                         </Button>
                     </div>
@@ -143,7 +143,7 @@ export function Navbar() {
                                         })}
                                     </div>
 
-                                    <Button className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2 mt-auto">
+                                    <Button className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2 mt-auto transition-all duration-200 ease-in-out hover:scale-105">
                                         Register UMKM
                                     </Button>
                                 </div>

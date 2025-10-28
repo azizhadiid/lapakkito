@@ -1,5 +1,6 @@
 "use client"
 
+import SectionFive from "../beranda/SectionFive";
 import SectionFour from "../beranda/SectionFour";
 import SectionOne from "../beranda/SectionOne";
 import SectionThree from "../beranda/SectionThree";
@@ -13,6 +14,7 @@ export default function BerandaPage() {
             <SectionTwo />
             <SectionThree />
             <SectionFour />
+            <SectionFive />
         </MainLayoutPengungjung>
     );
 }
