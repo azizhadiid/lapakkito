@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react"
 
 export default function SectionFive() {
     return (
-        <section className="py-16 md:py-24 bg-[#F7F6F6]">
+        <section className="py-16 md:py-24 bg-[#E2E0DD]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
 
@@ -13,16 +13,8 @@ export default function SectionFive() {
                     </h2>
 
                     {/* Tombol */}
-                    <Button
-                        className="
-              mt-8 bg-[#E65A4B] hover:bg-[#C9302C] text-white
-              rounded-md text-base md:text-lg font-semibold
-              transition-all duration-200 ease-in-out
-              hover:scale-105
-            "
-                    >
-                        <span>Ayo Mulai Sekarang</span>
-
+                    <Button className="mt-8 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105">
+                        Ayo Mulai Sekarang
                     </Button>
 
                 </div>
