@@ -20,6 +20,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 interface FormData {
     nama_usaha: string;
     nama_pemilik: string;
+    nomor_hp: string;      // BARU
+    alamat: string;        // BARU
+    lokasi_gmap: string;   // BARU
     kategori: string;
     tahun_berdiri: string;
     deskripsi: string;
@@ -47,6 +50,9 @@ export default function DaftarUmkmPage() {
     const [formData, setFormData] = useState<FormData>({
         nama_usaha: "",
         nama_pemilik: "",
+        nomor_hp: "",      // BARU
+        alamat: "",        // BARU
+        lokasi_gmap: "",   // BARU
         kategori: "",
         tahun_berdiri: "",
         deskripsi: "",
@@ -141,23 +147,30 @@ export default function DaftarUmkmPage() {
     };
 
     // --- HANDLER UTAMA SAAT SUBMIT ---
+    // --- HANDLER UTAMA SAAT SUBMIT ---
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault(); // Mencegah halaman refresh
         if (isLoading) return; // Mencegah double-submit
 
         // === 1. VALIDASI MANUAL (TANPA ZOD) ===
+        // AMBIL SEMUA FIELD BARU
         const {
             nama_usaha,
             nama_pemilik,
+            nomor_hp,      // <-- TAMBAHKAN INI
+            alamat,        // <-- TAMBAHKAN INI
             kategori,
             tahun_berdiri,
             deskripsi,
         } = formData;
 
         // Cek kolom wajib
+        // TAMBAHKAN VALIDASI UNTUK FIELD BARU
         if (
             !nama_usaha ||
             !nama_pemilik ||
+            !nomor_hp ||    // <-- TAMBAHKAN INI
+            !alamat ||      // <-- TAMBAHKAN INI
             !kategori ||
             !tahun_berdiri ||
             !deskripsi
@@ -181,7 +194,7 @@ export default function DaftarUmkmPage() {
 
         try {
             // === 2. UPLOAD SEMUA FOTO ===
-            // Kita upload semua file secara paralel (bersamaan)
+            // (Bagian ini sudah benar)
             const [url1, url2, url3, url4, url5] = await Promise.all([
                 uploadFoto(fileData.foto_1),
                 uploadFoto(fileData.foto_2),
@@ -192,8 +205,10 @@ export default function DaftarUmkmPage() {
 
             // === 3. SIAPKAN DATA UNTUK DATABASE ===
             const dataToInsert = {
-                ...formData, // Ambil semua data teks dari state
+                ...formData, // Ambil semua data teks dari state (termasuk nomor_hp, alamat, lokasi_gmap)
                 tahun_berdiri: parseInt(formData.tahun_berdiri), // Ubah ke angka
+                status: false, // <-- TAMBAHKAN INI (DEFAULT STATUS)
+
                 // Masukkan URL foto yang didapat
                 foto_1: url1,
                 foto_2: url2,
@@ -203,9 +218,10 @@ export default function DaftarUmkmPage() {
             };
 
             // === 4. INSERT DATA KE DATABASE ===
+            // (Bagian ini sudah benar)
             const { error: insertError } = await supabase
                 .from("umkm") // Nama tabel Anda
-                .insert(dataToInsert);
+                .insert(dataToInsert); // Kirim objek data yang sudah lengkap
 
             if (insertError) {
                 // Jika gagal insert, lempar error
@@ -213,11 +229,15 @@ export default function DaftarUmkmPage() {
             }
 
             // === 5. SUKSES ===
+            // (Bagian reset Anda sudah benar)
             alert("Sukses! Data UMKM Anda berhasil didaftarkan.");
             // Reset semua form
             setFormData({
                 nama_usaha: "",
                 nama_pemilik: "",
+                nomor_hp: "",
+                alamat: "",
+                lokasi_gmap: "",
                 kategori: "",
                 tahun_berdiri: "",
                 deskripsi: "",
@@ -301,6 +321,24 @@ export default function DaftarUmkmPage() {
                                     />
                                 </div>
 
+                                {/* --- INPUT BARU MULAI DARI SINI --- */}
+                                <div>
+                                    {/* Nomor HP */}
+                                    <label
+                                        htmlFor="nomor_hp"
+                                        className="block text-sm font-medium mb-1"
+                                    >
+                                        Nomor HP (WhatsApp) *
+                                    </label>
+                                    <Input
+                                        id="nomor_hp"
+                                        type="tel"
+                                        placeholder="Contoh: 08123456789"
+                                        value={formData.nomor_hp}
+                                        onChange={handleTextChange}
+                                    />
+                                </div>
+
                                 <div>
                                     <label
                                         htmlFor="kategori" // Biarkan 'htmlFor' tetap
@@ -341,6 +379,43 @@ export default function DaftarUmkmPage() {
                                         value={formData.tahun_berdiri}
                                         onChange={handleTextChange}
                                     />
+                                </div>
+
+                                <div className="md:col-span-2">
+                                    {/* Alamat */}
+                                    <label
+                                        htmlFor="alamat"
+                                        className="block text-sm font-medium mb-1"
+                                    >
+                                        Alamat Lengkap *
+                                    </label>
+                                    <Textarea
+                                        id="alamat"
+                                        placeholder="Contoh: Jl. Jend. Sudirman No. 10, RT 01, Kelurahan..., Kecamatan..., Kota Jambi"
+                                        className="min-h-[100px]"
+                                        value={formData.alamat}
+                                        onChange={handleTextChange}
+                                    />
+                                </div>
+
+                                <div className="md:col-span-2">
+                                    {/* Lokasi Google Maps */}
+                                    <label
+                                        htmlFor="lokasi_gmap"
+                                        className="block text-sm font-medium mb-1"
+                                    >
+                                        Tautan Lokasi Google Maps
+                                    </label>
+                                    <Input
+                                        id="lokasi_gmap"
+                                        type="url"
+                                        placeholder="https://maps.app.goo.gl/..."
+                                        value={formData.lokasi_gmap}
+                                        onChange={handleTextChange}
+                                    />
+                                    <p className="text-sm text-muted-foreground mt-1">
+                                        Buka Google Maps, cari lokasi usaha Anda, klik "Share", lalu "Copy link".
+                                    </p>
                                 </div>
 
                                 <div className="md:col-span-2">
