@@ -51,7 +51,7 @@ export default function SectionFour() {
                                 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl
                                 w-full md:w-[calc(50%-1rem)] lg:w-[calc((100%-4rem)/3)]"
                         >
-                            <CardContent className="flex flex-col p-0">
+                            <CardContent className="flex flex-col flex-grow p-0">
 
                                 {/* 1. Kutipan Testimoni */}
                                 <p className="text-[#4E4039] text-center flex-grow">

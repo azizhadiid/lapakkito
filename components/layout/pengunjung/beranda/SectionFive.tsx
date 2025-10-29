@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
 
 export default function SectionFive() {
     return (
@@ -8,12 +7,12 @@ export default function SectionFive() {
                 <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
 
                     {/* Judul */}
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#4E4039] leading-snug md:leading-tight">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#4E4039] leading-snug md:leading-tight animate-in fade-in slide-in-from-bottom-5 duration-700">
                         Temukan dan hubungi UMKM Jambi dengan mudah semua informasi usaha dalam satu platform.
                     </h2>
 
                     {/* Tombol */}
-                    <Button className="mt-8 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105">
+                    <Button className="mt-8 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-200">
                         Ayo Mulai Sekarang
                     </Button>
 

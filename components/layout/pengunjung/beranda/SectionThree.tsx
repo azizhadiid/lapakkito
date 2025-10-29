@@ -61,7 +61,9 @@ function UmkmCard({
     );
 }
 
-export default function SectionThree() {
+export default async function SectionThree() {
+    // Sebelum data diambil await 3 sek
+    await new Promise(resolve => setTimeout(resolve, 3000));
     return (
         <section className="py-16 md:py-24 bg-[#E2E0DD]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
