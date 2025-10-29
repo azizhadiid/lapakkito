@@ -13,7 +13,9 @@ function UmkmCard({
     location: string;
 }) {
     return (
-        <div className="group bg-white rounded-2xl shadow-md hover:shadow-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-gray-100">
+        <div className="group bg-white rounded-2xl shadow-md hover:shadow-2xl overflow-hidden 
+            transition-all duration-500 hover:-translate-y-2 border border-gray-100
+            w-full md:w-[calc(50%-1rem)] lg:w-[calc((100%-4rem)/3)]">
             {/* Image Container with Overlay Effect */}
             <div className="relative w-full h-64 overflow-hidden bg-gray-200">
                 <img
@@ -27,17 +29,17 @@ function UmkmCard({
             {/* Content Section */}
             <div className="p-6 space-y-4">
                 {/* Title */}
-                <h3 className="text-2xl font-bold text-gray-900 group-hover:text-[#D9534F] transition-colors duration-300 line-clamp-1">
+                <h3 className="text-2xl font-bold text-[#4E4039] group-hover:text-[#D9534F] transition-colors duration-300 line-clamp-1">
                     {title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 min-h-[4.5rem]">
+                <p className="text-sm text-[#4E4039] leading-relaxed line-clamp-3 min-h-[4.5rem]">
                     {description}
                 </p>
 
                 {/* Location */}
-                <div className="flex items-center gap-2 text-sm text-gray-700 pt-2 border-t border-gray-100">
+                <div className="flex items-center gap-2 text-sm text-[#4E4039] pt-2 border-t border-gray-100">
                     <MapPin className="w-4 h-4 text-[#D9534F] flex-shrink-0" />
                     <span className="line-clamp-1">{location}</span>
                 </div>
@@ -67,7 +69,7 @@ export default function SectionThree() {
                     UMKM Yang Ada Saat ini
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="flex flex-wrap items-stretch justify-center gap-8">
                     <UmkmCard
                         imgSrc="/images/jas.jpg"
                         title="Toko Jas Jambi"
