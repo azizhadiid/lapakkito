@@ -1,9 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton"
 
-/**
- * Ini adalah kerangka untuk SATU kartu UMKM.
- * Kita buat sebagai helper di file yang sama.
- */
 function SkeletonCard() {
     return (
         <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 w-full md:w-[calc(50%-1rem)] lg:w-[calc((100%-4rem)/3)]">
@@ -34,9 +30,6 @@ function SkeletonCard() {
     )
 }
 
-/**
- * Ini adalah komponen skeleton LENGKAP untuk Section 3
- */
 export default function UmkmSectionSkeleton() {
     return (
         <section className="py-16 md:py-24 bg-[#E2E0DD]">

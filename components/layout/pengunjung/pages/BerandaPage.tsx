@@ -1,5 +1,3 @@
-"use client"
-
 import { Suspense } from "react";
 import SectionFive from "../beranda/SectionFive";
 import SectionFour from "../beranda/SectionFour";
@@ -14,9 +12,8 @@ export default function BerandaPage() {
         <MainLayoutPengungjung>
             <SectionOne />
             <SectionTwo />
-            {/* === INI KUNCINYA === */}
+            {/* Untuk Skaleton UMKM Card */}
             <Suspense fallback={<UmkmSectionSkeleton />}>
-                {/* Next.js akan menunggu komponen async ini selesai */}
                 <SectionThree />
             </Suspense>
             <SectionFour />
