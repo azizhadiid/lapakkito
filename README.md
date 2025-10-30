@@ -1,41 +1,154 @@
-# Query SQL untuk Supabase
+# 🌐 Lapak Kito
 
+Lapak Kito adalah platform direktori digital yang didedikasikan untuk mempromosikan dan mendukung Usaha Mikro, Kecil, dan Menengah (UMKM) lokal di Jambi.
+
+---
+
+## 🚀 Tech Stack
+
+Project ini dibangun menggunakan teknologi web modern untuk memastikan performa, skalabilitas, dan pengalaman developer yang baik.
+
+* **Framework:** [Next.js](https://nextjs.org/) 15 (App Router & Turbopack)
+* **Language:** [TypeScript](https://www.typescriptlang.org/)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **UI Components:** [Shadcn/ui](https://ui.shadcn.com/)
+* **Animasi:** `tailwindcss-animate`
+* **Ikon:** [Lucide React](https://lucide.dev/) & [React Icons](https://react-icons.github.io/react-icons/)
+* **Loading UI:** React Suspense & Komponen Skeleton
+
+---
+
+## 💻 Cara Menjalankan Project
+
+Untuk menjalankan proyek ini secara lokal di komputer Anda, ikuti langkah-langkah berikut:
+
+1.  **Clone repository ini:**
+    ```bash
+    git clone https://github.com/azizhadiid/lapakkito.git
+    cd Folder_Tempat Clone
+    ```
+
+2.  **Install dependencies:**
+    (Gunakan `npm`, `yarn`, atau `pnpm` sesuai preferensi Anda)
+    ```bash
+    npm install
+    ```
+
+3.  **Buat file environment:**
+    Salin file `.env.example` (jika ada) menjadi `.env.local` dan isi variabel yang diperlukan (misal: API key untuk Google Maps, koneksi database, dll).
+    ```bash
+    cp .env.example .env.local
+    ```
+
+4.  **Jalankan development server:**
+    ```bash
+    npm run dev
+    ```
+
+5.  Buka [http://localhost:3000](http://localhost:3000) di browser Anda untuk melihat hasilnya.
+
+---
+
+### 🔑 Konfigurasi Environment
+
+Project ini membutuhkan beberapa kunci API untuk terhubung ke layanan eksternal (Supabase).
+
+1.  Buat file `.env.local` di root proyek Anda:
+    ```bash
+    cp .env.example .env.local
+    ```
+
+2.  Buka file `.env.local` dan isi variabel yang diperlukan.
+
+    | Variabel | Deskripsi | Contoh |
+    | :--- | :--- | :--- |
+    | `NEXT_PUBLIC_SUPABASE_URL` | URL publik untuk proyek Supabase Anda. | `https://[nama-proyek-anda].supabase.co` |
+    | `NEXT_PUBLIC_SUPABASE_ANON_KEY`| Kunci `anon` (publik) untuk proyek Supabase Anda. | `ey...[kunci-panjang]...` |
+
+---
+
+## 🗃️ Query Database (Supabase)
 ```bash
--- Membuat tabel untuk menyimpan data UMKM
-CREATE TABLE public.umkm (
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    -- Membuat tabel untuk menyimpan data UMKM
+    CREATE TABLE public.umkm (
+      id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 
-  -- Informasi Dasar (Wajib)
-  nama_usaha text NOT NULL CHECK (char_length(nama_usaha) >= 3),
-  nama_pemilik text NOT NULL CHECK (char_length(nama_pemilik) >= 3),
-  kategori text NOT NULL CHECK (char_length(kategori) >= 3),
-  tahun_berdiri smallint NOT NULL CHECK (tahun_berdiri >= 1900 AND tahun_berdiri <= extract(year from now())),
-  deskripsi text NOT NULL CHECK (char_length(deskripsi) >= 10 AND char_length(deskripsi) <= 500),
+      -- Informasi Dasar (Wajib)
+      nama_usaha text NOT NULL CHECK (char_length(nama_usaha) >= 3),
+      nama_pemilik text NOT NULL CHECK (char_length(nama_pemilik) >= 3),
+      nomor_hp text,
+      alamat text,
+      lokasi_gmap text,
+      status boolean DEFAULT false NOT NULL,
+      kategori text NOT NULL CHECK (char_length(kategori) >= 3),
+      tahun_berdiri smallint NOT NULL CHECK (tahun_berdiri >= 1900 AND tahun_berdiri <= extract(year from now())),
+      deskripsi text NOT NULL CHECK (char_length(deskripsi) >= 10 AND char_length(deskripsi) <= 500),
 
-  -- Tautan ke Foto (Opsional)
-  -- Ini akan menyimpan URL PUBLIK dari Supabase Storage
-  foto_1 text,
-  foto_2 text,
-  foto_3 text,
-  foto_4 text,
-  foto_5 text,
+      -- Tautan ke Foto 
+      -- Ini akan menyimpan URL PUBLIK dari Supabase Storage
+      foto_1 text,
+      foto_2 text,
+      foto_3 text,
+      foto_4 text,
+      foto_5 text,
 
-  -- Tautan Platform & Sosmed (Opsional)
-  link_instagram text,
-  link_tiktok text,
-  link_facebook text,
-  link_gojek text,
-  link_grab text,
-  link_maxim text,
-  link_shopee text,
-  link_tokopedia text,
+      -- Tautan Platform & Sosmed 
+      link_instagram text,
+      link_tiktok text,
+      link_facebook text,
+      link_gojek text,
+      link_grab text,
+      link_maxim text,
+      link_shopee text,
+      link_tokopedia text,
 
-  created_at timestamp with time zone DEFAULT now()
-);
+      created_at timestamp with time zone DEFAULT now()
+    );
 
-DROP TABLE public.umkm;
+    DROP TABLE public.umkm;
 
--- Memberi komentar pada kolom untuk kejelasan
-COMMENT ON COLUMN public.umkm.user_id IS 'Pemilik data UMKM, terhubung ke auth.users';
-COMMENT ON COLUMN public.umkm.foto_1 IS 'URL publik atau path file dari Supabase Storage';
+    -- Memberi komentar pada kolom untuk kejelasan
+    COMMENT ON COLUMN public.umkm.user_id IS 'Pemilik data UMKM, terhubung ke auth.users';
+    COMMENT ON COLUMN public.umkm.foto_1 IS 'URL publik atau path file dari Supabase Storage';
 ```
+---
+
+## 📊 Progress Saat Ini
+
+Proyek ini masih dalam tahap pengembangan aktif. Fitur yang sudah berhasil diimplementasikan:
+
+1. **Halaman Beranda (Landing Page):**
+
+    ![Halaman Beranda](/public/images/screenshot/ss1.png)
+    * Hero Section dengan animasi.
+    * Section "Bagaimana Bekerja".
+    * Section "UMKM Unggulan" (menggunakan `Suspense` dan `Skeleton`).
+    * Section "Testimonial".
+    * Footer lengkap.
+
+2. **Halaman Direktori UMKM (`/umkm`):**
+
+    ![Halaman UMKM](/public/images/screenshot/ss2.png)
+    * Hero Section dengan search bar dan filter kategori.
+    * Daftar UMKM lengkap dengan layout grid responsif.
+    * Komponen Pagination.
+
+3. **Halaman Direktori FAQ (`/faq`):**
+
+    ![Halaman FAQ](/public/images/screenshot/ss3.png)
+    * Hero Section dengan title dan text.
+    * Daftar FAQ yang sering ditanyakan pada website.
+
+4. **Halaman Detail UMKM (`/umkm/[id]`):**
+
+    ![Halaman Detail UMKM](/public/images/screenshot/ss4.png)
+    * Layout 2 kolom (Galeri & Info).
+    * Carousel gambar produk.
+    * Info detail (Nama, Kategori, Author, Deskripsi).
+    * Link Sosial Media & Pesan Online.
+    * Embed Google Maps.
+    * **Loading State:** Implementasi `loading.tsx` untuk menampilkan skeleton saat data diambil.
+
+5. **Desain Responsif:** Seluruh halaman telah disesuaikan untuk perangkat mobile, tablet, dan desktop.
+
+---
