@@ -12,27 +12,32 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import IlsLogin from "@/public/iconlogin.svg";
+import Logo from "@/public/images/logo-vertikal.png";
 
 export default function Login() {
   return (
     <main className="min-h-screen bg-[#4E4039] lg:bg-[rgb(226,224,221)]  flex items-center justify-center lg:justify-end p-4">
       <section className="w-full max-w-md lg:mr-50">
         {/* Uncomment jika ingin menggunakan ilustrasi background */}
-        <div className="bg-[#4E4039] absolute left-0 top-0 bottom-0 w-2/3 hidden lg:block">
+        <div className="bg-[#4E4039] absolute left-0 top-0 bottom-0 w-2/3 overflow-hidden">
           <Image
             src={IlsLogin}
             alt="ilustrator admin"
-            className="mt-30 md:hidden lg:block"
+            className="mt-30 hidden md:hidden lg:block"
           />
         </div>
 
         <Card className="w-full shadow-2xl shadow-zinc-900/50 relative">
           <CardContent className="pt-8 pb-6 px-6 sm:px-8">
-            <section className="mb-8 sm:mb-10">
-              <CardTitle className="text-center text-[#4E4039] text-3xl sm:text-4xl mb-3 sm:mb-5 font-bold">
+            <section className="mb-8 sm:mb-10 *:text-center">
+              <CardTitle className="flex justify-center mb-10">
+                <Image src={Logo} alt="logo" className="w-50" />
+              </CardTitle>
+
+              <CardTitle className="text-[#4E4039] text-3xl sm:text-4xl mb-3 sm:mb-5 font-bold">
                 Login
               </CardTitle>
-              <CardTitle className="text-center text-[#4E4039] text-xl sm:text-2xl">
+              <CardTitle className="text-[#4E4039] text-xl sm:text-2xl">
                 Admin
               </CardTitle>
             </section>
