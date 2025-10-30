@@ -62,7 +62,9 @@ export function Navbar() {
                     <div className="hidden lg:flex items-center gap-6">
                         {navItems.map((item) => {
                             // Cek apakah link ini sedang aktif
-                            const isActive = pathname === item.href
+                            const isActive = item.href === '/'
+                                ? pathname === item.href // Pencocokan persis untuk Beranda
+                                : pathname.startsWith(item.href); // Pencocokan 'startsWith' untuk link lain
 
                             return (
                                 <Link
@@ -123,7 +125,9 @@ export function Navbar() {
                                     <div className="flex flex-col gap-4">
                                         {navItems.map((item) => {
                                             // Cek apakah link ini sedang aktif
-                                            const isActive = pathname === item.href;
+                                            const isActive = item.href === '/'
+                                                ? pathname === item.href // Pencocokan persis untuk Beranda
+                                                : pathname.startsWith(item.href); // Pencocokan 'startsWith' untuk link lain
 
                                             return (
                                                 <Link
