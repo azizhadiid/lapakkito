@@ -1,10 +1,21 @@
-import React from 'react'
-import BerandaAdmin from '@/components/layout/admin/pages/beranda';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Navbar } from "../../pengunjung/Navbar";
 
-export default function Beranda() {
+export default function BerandaAdmin() {
   return (
-    <>
-        < BerandaAdmin/>
-    </>
-  )
+    <main>
+      <Navbar/>
+      <Card>
+        <CardTitle></CardTitle>
+      </Card>
+    </main>
+  );
 }

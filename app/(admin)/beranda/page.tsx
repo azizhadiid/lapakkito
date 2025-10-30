@@ -1,7 +1,8 @@
-export default function BerandaAdmin() {
+import React from "react";
+import BerandaAdmin from '@/components/layout/admin/pages/beranda';
+
+export default function DashboardAdmin() {
     return (
-        <div>
-            <h1>Beranda Admin</h1>
-        </div>
+            <BerandaAdmin/>
     );
 }

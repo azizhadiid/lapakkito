@@ -15,71 +15,70 @@ import IlsLogin from "@/public/iconlogin.svg";
 
 export default function Login() {
   return (
-    <main className="min-h-screen bg-[#E2E0DD]">
-      <div className="bg-[#4E4039] absolute w-280 h-screen overflow-hidden">
-        <Image
-          src={IlsLogin}
-          alt="ilustrator admin"
-          className="absolute mt-20 hidden lg:block h-screen ml-20"
-        />
-      </div>
-      <div className="p-4 relative">
-        <div className="flex justify-end mt-13">
-          <Card className="max-w-md md:mr-20 w-120 h-150 p-4 shadow-zinc-900 shadow-2xl">
-            <div className="mt-12">
-              <section className="mb-10">
-                <CardTitle className="text-center text-[#4E4039] text-4xl mb-5 font-bold">
+    <main className="min-h-screen bg-[rgb(226,224,221)] flex items-center justify-center p-4">
+      <section className="w-full max-w-md">
+        {/* Uncomment jika ingin menggunakan ilustrasi background */}
+        {/* <div className="bg-[#4E4039] fixed left-0 top-0 bottom-0 w-1/2 hidden lg:block">
+          <Image
+            src={IlsLogin}
+            alt="ilustrator admin"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-3/4"
+          />
+        </div> */}
+
+        <Card className="w-full shadow-2xl shadow-zinc-900/50">
+          <CardContent className="pt-8 pb-6 px-6 sm:px-8">
+            <section className="mb-8 sm:mb-10">
+              <CardTitle className="text-center text-[#4E4039] text-3xl sm:text-4xl mb-3 sm:mb-5 font-bold">
+                Login
+              </CardTitle>
+              <CardTitle className="text-center text-[#4E4039] text-xl sm:text-2xl">
+                Admin
+              </CardTitle>
+            </section>
+
+            <form action="" className="space-y-4 sm:space-y-5">
+              <div>
+                <label
+                  htmlFor="username"
+                  className="block text-[#4E4039] mb-2 text-sm sm:text-base"
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Inputkan username"
+                  className="w-full py-3 px-4 sm:px-5 rounded-xl border border-[#4E4039] focus:outline-none focus:ring-2 focus:ring-[#4E4039] focus:border-transparent transition-all"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-[#4E4039] mb-2 text-sm sm:text-base"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Inputkan password"
+                  className="w-full py-3 px-4 sm:px-5 rounded-xl border border-[#4E4039] focus:outline-none focus:ring-2 focus:ring-[#4E4039] focus:border-transparent transition-all"
+                />
+              </div>
+              <div className="text-center">
+                <Button
+                  type="submit"
+                  className="w-50 mt-6 py-5 bg-[#4E4039] hover:bg-[#3d332d] hover:scale-[1.02] active:scale-[0.98] transition-all duration-150 ease-in-out text-sm sm:text-base"
+                >
                   Login
-                </CardTitle>
-                <CardTitle className="text-center text-[#4E4039] text-2xl">
-                  Admin
-                </CardTitle>
-              </section>
-              <form action="">
-                <section className="space-y-5 text-center">
-                  <div className="text-center px-2">
-                    <label
-                      htmlFor="Username"
-                      className="w-100 flex justify-start text-[#4E4039]"
-                    >
-                      Username
-                    </label>
-                  </div>
-                  <div className="text-center">
-                    <input
-                      type="text"
-                      id="username"
-                      placeholder="Inputkan username"
-                      value={FormData.username}
-                      className="w-100 py-3 rounded-xl p-5 border-[#4E4039] border-1"
-                    />
-                  </div>
-                  <div className="text-center px-2">
-                    <label
-                      htmlFor="Password"
-                      className="w-100 flex justify-start text-[#4E4039]"
-                    >
-                      Password
-                    </label>
-                  </div>
-                  <div className="text-center">
-                    <input
-                      type="password"
-                      id="password"
-                      placeholder="Inputkan password"
-                      value={FormData.username}
-                      className="w-100 py-3 rounded-xl p-5 border-[#4E4039] border-1"
-                    />
-                  </div>
-                  <Button className="mt-5 w-30 py-5 bg-[#4E4039] hover:scale-105 transition duration-150 ease-in-out">
-                    Login
-                  </Button>
-                </section>
-              </form>
-            </div>
-          </Card>
-        </div>
-      </div>
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </section>
     </main>
   );
 }
