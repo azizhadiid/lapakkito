@@ -11,17 +11,20 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-// Ganti ini dengan path ke ilustrasi Anda
-// Anda bisa download ilustrasi dari situs seperti undraw.co
-const ILLUSTRATION_PATH = "/iconlogin.svg";
+import IlsLogin from "@/public/iconlogin.svg";
 
 export default function Login() {
   return (
     <main className="min-h-screen bg-[#E2E0DD]">
-      <div className="bg-[#4E4039] absolute w-280 h-screen"></div>
-      <div className="p-4 z-10 relative">
-        <div className="h-screen flex items-center justify-end">
+      <div className="bg-[#4E4039] absolute w-280 h-screen overflow-hidden">
+        <Image
+          src={IlsLogin}
+          alt="ilustrator admin"
+          className="absolute mt-20 hidden lg:block h-screen ml-20"
+        />
+      </div>
+      <div className="p-4 relative">
+        <div className="flex justify-end mt-13">
           <Card className="max-w-md md:mr-20 w-120 h-150 p-4 shadow-zinc-900 shadow-2xl">
             <div className="mt-12">
               <section className="mb-10">
