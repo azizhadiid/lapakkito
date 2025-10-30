@@ -6,6 +6,6 @@ export const metadata: Metadata = {
 };
 
 export default function RegisterPage() {
-    // mengembalikan komponen BerandaPage sebagai client-side rendering
+    // mengembalikan komponen UMKM Page sebagai client-side rendering
     return <UMKMPage />;
 }
