@@ -1,5 +1,5 @@
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { MapPin } from "lucide-react";
-import Link from "next/link";
 
 function UmkmCard({
     imgSrc,
@@ -13,9 +13,13 @@ function UmkmCard({
     location: string;
 }) {
     return (
-        <div className="group bg-white rounded-2xl shadow-md hover:shadow-2xl overflow-hidden 
-            transition-all duration-500 hover:-translate-y-2 border border-gray-100
-            w-full md:w-[calc(50%-1rem)] lg:w-[calc((100%-4rem)/3)]">
+        <div className="
+            group bg-white rounded-2xl shadow-md hover:shadow-2xl overflow-hidden 
+            transition-all hover:-translate-y-2 border border-gray-100
+            w-full md:w-[calc(50%-1rem)] lg:w-[calc((100%-4rem)/3)]
+            
+            animate-in fade-in slide-in-from-bottom-5 duration-500
+        ">
             {/* Image Container with Overlay Effect */}
             <div className="relative w-full h-64 overflow-hidden bg-gray-200">
                 <img
@@ -61,42 +65,59 @@ function UmkmCard({
     );
 }
 
-export default async function SectionThree() {
-    // Sebelum data diambil await 3 sek
-    await new Promise(resolve => setTimeout(resolve, 3000));
+const dummyData = Array(9).fill({
+    imgSrc: "/images/jas.jpg",
+    title: "Toko Jas Jambi",
+    description: "Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara, dengan layanan penyesuaian dan konsultasi gaya.",
+    location: "Jalan Kota Baru, Kota Jambi"
+});
+
+export default function UMKMCardSection() {
     return (
+        // Latar belakang #E2E0DD agar konsisten dengan halaman Beranda
         <section className="py-16 md:py-24 bg-[#E2E0DD]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[#4E4039]">
-                    UMKM Yang Ada Saat ini
-                </h2>
 
+                {/* Container Flexbox untuk Kartu */}
                 <div className="flex flex-wrap items-stretch justify-center gap-8">
-                    <UmkmCard
-                        imgSrc="/images/jas.jpg"
-                        title="Toko Jas Jambi"
-                        description="Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara, dengan layanan penyesuaian dan konsultasi gaya."
-                        location="Jalan Kota Baru, Kota Jambi"
-                    />
-                    <UmkmCard
-                        imgSrc="/images/donut.jpg"
-                        title="Toko Kue Jambi"
-                        description="Toko Kue Jambi menjual aneka kue lezat untuk acara dan konsumsi harian, bisa dipesan langsung."
-                        location="Jalan Kota Baru, Kota Jambi"
-                    />
-                    <UmkmCard
-                        imgSrc="/images/kue.jpg"
-                        title="Toko Donat Jambi"
-                        description="Toko Donat Jambi menawarkan donat lembut dengan berbagai topping, cocok untuk camilan harian atau acara spesial."
-                        location="Jalan Kota Baru, Kota Jambi"
-                    />
+                    {dummyData.map((item, index) => (
+                        <UmkmCard
+                            key={index}
+                            imgSrc={item.imgSrc}
+                            title={item.title}
+                            description={item.description}
+                            location={item.location}
+                        />
+                    ))}
                 </div>
 
-                <div className="text-center mt-12">
-                    {/* Menggunakan hex code #D9534F dan hover #C9302C */}
-                    <Link href="/umkm" className="text-lg text-[#D9534F] font-semibold underline hover:text-[#C9302C] decoration-2 underline-offset-4">
-                        Lihat Selengkapnya
-                    </Link>
+                {/* === Pagination === */}
+                <div className="mt-16">
+                    <Pagination>
+                        <PaginationContent>
+                            <PaginationItem>
+                                <PaginationPrevious href="#" />
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink href="#" isActive>1</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink href="#">2</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationEllipsis />
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink href="#">9</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink href="#">10</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationNext href="#" />
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
                 </div>
             </div>
         </section>

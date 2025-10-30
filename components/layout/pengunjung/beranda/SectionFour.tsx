@@ -42,14 +42,16 @@ export default function SectionFour() {
                 </div>
 
                 {/* === Grid untuk Card Testimoni === */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+                <div className="flex flex-wrap items-stretch justify-center gap-8">
 
                     {testimonialData.map((item) => (
                         <Card
                             key={item.name}
-                            className="bg-[#E2E0DD] rounded-2xl shadow-lg p-8 flex flex-col h-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
+                            className="bg-[#E2E0DD] rounded-2xl shadow-lg p-8 flex flex-col 
+                                transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl
+                                w-full md:w-[calc(50%-1rem)] lg:w-[calc((100%-4rem)/3)]"
                         >
-                            <CardContent className="flex flex-col p-0 h-full">
+                            <CardContent className="flex flex-col flex-grow p-0">
 
                                 {/* 1. Kutipan Testimoni */}
                                 <p className="text-[#4E4039] text-center flex-grow">

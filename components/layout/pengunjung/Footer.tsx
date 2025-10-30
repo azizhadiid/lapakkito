@@ -40,7 +40,7 @@ export default function Footer() {
                     {/* === Kolom 1: Logo & Info === */}
                     <div className="flex flex-col items-center text-center md:items-start md:text-left lg:col-span-2">
                         <Link href="/" className="mb-4">
-                            <img src="/images/logo-vertikal.png" alt="Lapak Kito Logo" className="h-12 w-auto" />
+                            <img src="/images/logo-vertikal.png" alt="Lapak Kito Logo" className="h-13 w-auto" />
                         </Link>
                         <p className="text-sm mt-2">
                             Copyright &copy; {new Date().getFullYear()} Lapakkito.com

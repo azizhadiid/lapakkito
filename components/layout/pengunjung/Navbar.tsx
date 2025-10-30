@@ -56,7 +56,7 @@ export function Navbar() {
                 <div className="flex justify-between items-center h-20">
 
                     <Link href="/" className="flex items-center gap-2">
-                        <img src="/images/logo.png" alt="Lapak Kito Logo" className="h-10 w-auto" />
+                        <img src="/images/logo.png" alt="Lapak Kito Logo" className="h-12 w-auto" />
                     </Link>
 
                     <div className="hidden lg:flex items-center gap-6">
