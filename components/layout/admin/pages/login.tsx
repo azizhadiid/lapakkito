@@ -15,18 +15,18 @@ import IlsLogin from "@/public/iconlogin.svg";
 
 export default function Login() {
   return (
-    <main className="min-h-screen bg-[rgb(226,224,221)] flex items-center justify-center p-4">
-      <section className="w-full max-w-md">
+    <main className="min-h-screen bg-[#4E4039] lg:bg-[rgb(226,224,221)]  flex items-center justify-center lg:justify-end p-4">
+      <section className="w-full max-w-md lg:mr-50">
         {/* Uncomment jika ingin menggunakan ilustrasi background */}
-        {/* <div className="bg-[#4E4039] fixed left-0 top-0 bottom-0 w-1/2 hidden lg:block">
+        <div className="bg-[#4E4039] absolute left-0 top-0 bottom-0 w-2/3 hidden lg:block">
           <Image
             src={IlsLogin}
             alt="ilustrator admin"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-3/4"
+            className="mt-30 md:hidden lg:block"
           />
-        </div> */}
+        </div>
 
-        <Card className="w-full shadow-2xl shadow-zinc-900/50">
+        <Card className="w-full shadow-2xl shadow-zinc-900/50 relative">
           <CardContent className="pt-8 pb-6 px-6 sm:px-8">
             <section className="mb-8 sm:mb-10">
               <CardTitle className="text-center text-[#4E4039] text-3xl sm:text-4xl mb-3 sm:mb-5 font-bold">
