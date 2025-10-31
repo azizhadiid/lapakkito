@@ -1,4 +1,4 @@
-import { MainLayoutPengungjung } from "../MainLayoutPengunjung";
+import { MainLayoutPengunjung } from "../MainLayoutPengunjung";
 import SelectionFour from "../register-umkm/SelectionFour";
 import SelectionOne from "../register-umkm/SelectionOne";
 import SelectionThree from "../register-umkm/SelectionThree";
@@ -6,7 +6,7 @@ import SelectionTwo from "../register-umkm/SelectionTwo";
 
 export default function RegisterUMKMPage() {
     return (
-        <MainLayoutPengungjung>
+        <MainLayoutPengunjung>
             <section className="relative py-23 md:py-30">
                 <div className="max-w-xl md:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Header */}
@@ -24,8 +24,8 @@ export default function RegisterUMKMPage() {
 
                                 <SelectionOne />
                                 <SelectionTwo />
-                                <SelectionThree/>
-                                <SelectionFour/>
+                                <SelectionThree />
+                                <SelectionFour />
 
                             </div>
                         </form>
@@ -33,6 +33,6 @@ export default function RegisterUMKMPage() {
 
                 </div>
             </section>
-        </MainLayoutPengungjung>
+        </MainLayoutPengunjung>
     )
 }
