@@ -1,6 +1,6 @@
 "use client"
 
-import { MainLayoutPengungjung } from "../MainLayoutPengunjung";
+import { MainLayoutPengunjung } from "../MainLayoutPengunjung";
 import { Button } from "@/components/ui/button";
 import {
     Carousel,
@@ -44,7 +44,7 @@ function LinkButton({ icon: Icon, text }: { icon: React.ElementType, text: strin
 
 export default function DetailUMKMPage({ umkmData }: { umkmData: UmkmDataProps }) {
     return (
-        <MainLayoutPengungjung>
+        <MainLayoutPengunjung>
             <div className="bg-[#EFEFEF] py-24 md:py-32">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-10">
 
@@ -160,6 +160,6 @@ export default function DetailUMKMPage({ umkmData }: { umkmData: UmkmDataProps }
 
                 </div>
             </div>
-        </MainLayoutPengungjung>
+        </MainLayoutPengunjung>
     );
 }

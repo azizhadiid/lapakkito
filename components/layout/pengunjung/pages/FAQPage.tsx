@@ -1,7 +1,7 @@
 "use client";
 
 import SectionOne from "../faq/SelectionOne";
-import { MainLayoutPengungjung } from "../MainLayoutPengunjung";
+import { MainLayoutPengunjung } from "../MainLayoutPengunjung";
 
 const FAQPage = () => {
 
@@ -31,10 +31,10 @@ const FAQPage = () => {
 
     return (
         <>
-            <MainLayoutPengungjung>
+            <MainLayoutPengunjung>
                 <SectionOne faqs={faqs} />
 
-            </MainLayoutPengungjung>
+            </MainLayoutPengunjung>
         </>
     )
 }

@@ -3,7 +3,7 @@
 import Footer from "./Footer";
 import { Navbar } from "./Navbar";
 
-export function MainLayoutPengungjung({ children }: { children: React.ReactNode }) {
+export function MainLayoutPengunjung({ children }: { children: React.ReactNode }) {
     return (
         <div>
             <main className="bg-[#EFEFEF]">
