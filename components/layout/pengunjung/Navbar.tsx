@@ -24,6 +24,9 @@ export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false)
     const pathname = usePathname()
 
+    const registerHref = "/register-umkm";
+    const isRegisterActive = pathname.startsWith(registerHref);
+
     // useEffect untuk menambahkan event listener saat scroll
     useEffect(() => {
         const handleScroll = () => {
@@ -94,8 +97,17 @@ export function Navbar() {
                     </div>
 
                     <div className="hidden lg:block">
-                        <Button className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2 transition-all duration-200 ease-in-out hover:scale-105">
-                            Register UMKM
+                        <Button
+                            asChild
+                            className={`
+                                rounded-lg px-6 py-2 transition-all duration-200 ease-in-out hover:scale-105
+                                ${isRegisterActive
+                                    ? 'bg-[#C9302C] text-zinc-100'
+                                    : 'bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C]'
+                                }
+                            `}
+                        >
+                            <Link href={registerHref}>Register UMKM</Link>
                         </Button>
                     </div>
 
@@ -147,8 +159,17 @@ export function Navbar() {
                                         })}
                                     </div>
 
-                                    <Button className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2 mt-auto transition-all duration-200 ease-in-out hover:scale-105">
-                                        Register UMKM
+                                    <Button
+                                        asChild // <-- Tambahkan asChild
+                                        className={`
+                                            rounded-lg px-6 py-2 mt-auto transition-all duration-200 ease-in-out hover:scale-105
+                                            ${isRegisterActive
+                                                ? 'bg-[#C9302C] text-zinc-100' // State Aktif
+                                                : 'bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C]' // State Normal
+                                            }
+                                        `}
+                                    >
+                                        <Link href={registerHref}>Register UMKM</Link>
                                     </Button>
                                 </div>
                             </SheetContent>

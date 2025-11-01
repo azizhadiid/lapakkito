@@ -1,5 +1,7 @@
 import Link from "next/link"
-import { Mail, Phone, MapPin, Instagram, Twitter, Youtube, Globe } from "lucide-react"
+import { Mail, Phone, MapPin, Youtube, Globe } from "lucide-react"
+import { FaInstagram } from 'react-icons/fa';
+import { BsTwitterX } from 'react-icons/bs';
 
 // Komponen helper untuk link di footer 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -35,10 +37,10 @@ export default function Footer() {
         <footer className="bg-[#F7F6F6] text-[#4E4039] border-t border-gray-200">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
                     {/* === Kolom 1: Logo & Info === */}
-                    <div className="flex flex-col items-center text-center md:items-start md:text-left lg:col-span-2">
+                    <div className="flex flex-col items-center text-center md:items-start md:text-left md:col-span-2 lg:col-span-2">
                         <Link href="/" className="mb-4">
                             <img src="/images/logo-vertikal.png" alt="Lapak Kito Logo" className="h-13 w-auto" />
                         </Link>
@@ -50,9 +52,9 @@ export default function Footer() {
                         </p>
                         {/* Ikon Sosial Media */}
                         <div className="flex gap-4 mt-6">
-                            <SocialIcon href="#" icon={Instagram} />
+                            <SocialIcon href="#" icon={FaInstagram} />
                             <SocialIcon href="#" icon={Globe} />
-                            <SocialIcon href="#" icon={Twitter} />
+                            <SocialIcon href="#" icon={BsTwitterX} />
                             <SocialIcon href="#" icon={Youtube} />
                         </div>
                     </div>
@@ -66,23 +68,11 @@ export default function Footer() {
                             <FooterLink href="/umkm">UMKM</FooterLink>
                             <FooterLink href="/faq">FAQ</FooterLink>
                             <FooterLink href="/kontak">Kontak Kami</FooterLink>
-                            <FooterLink href="/register">Register UMKM</FooterLink>
+                            <FooterLink href="/register-umkm">Register UMKM</FooterLink>
                         </ul>
                     </div>
 
-                    {/* === Kolom 3: Bantuan === */}
-                    <div className="flex flex-col items-center text-center md:items-start md:text-left">
-                        <h3 className="text-lg font-semibold mb-4 text-yellow-950">Bantuan</h3>
-                        <ul className="space-y-3">
-                            <FooterLink href="#">Pusat Bantuan</FooterLink>
-                            <FooterLink href="#">Ketentuan Layanan</FooterLink>
-                            <FooterLink href="#">Legalitas</FooterLink>
-                            <FooterLink href="#">Kebijakan Privasi</FooterLink>
-                            <FooterLink href="#">Status</FooterLink>
-                        </ul>
-                    </div>
-
-                    {/* === Kolom 4: Kontak === */}
+                    {/* === Kolom 3: Kontak === */}
                     <div className="flex flex-col items-center text-center md:items-start md:text-left">
                         <h3 className="text-lg font-semibold mb-4 text-yellow-950">Kontak</h3>
                         <ul className="space-y-4">
