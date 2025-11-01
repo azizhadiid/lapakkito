@@ -1,12 +1,15 @@
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { MapPin } from "lucide-react";
+import Link from "next/link";
 
 function UmkmCard({
+    id,
     imgSrc,
     title,
     description,
     location,
 }: {
+    id: string;
     imgSrc: string;
     title: string;
     description: string;
@@ -49,7 +52,10 @@ function UmkmCard({
                 </div>
 
                 {/* Button */}
-                <button className="w-full mt-4 py-3 px-6 bg-white border-2 border-[#D9534F] text-[#D9534F] rounded-lg font-semibold hover:bg-[#D9534F] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                <Link
+                    href={`/umkm/${id}`} // <-- Gunakan 'id' untuk href dinamis
+                    className="w-full mt-4 py-3 px-6 bg-white border-2 border-[#D9534F] text-[#D9534F] rounded-lg font-semibold hover:bg-[#D9534F] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                >
                     <span>Lihat Detail</span>
                     <svg
                         className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"
@@ -59,18 +65,78 @@ function UmkmCard({
                     >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                </button>
+                </Link>
             </div>
         </div>
     );
 }
 
-const dummyData = Array(9).fill({
-    imgSrc: "/images/jas.jpg",
-    title: "Toko Jas Jambi",
-    description: "Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara, dengan layanan penyesuaian dan konsultasi gaya.",
-    location: "Jalan Kota Baru, Kota Jambi"
-});
+const dummyData = [
+    {
+        id: "toko-jas-jambi",
+        imgSrc: "/images/jas.jpg",
+        title: "Toko Jas Jambi",
+        description: "Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara...",
+        location: "Jalan Kota Baru, Kota Jambi"
+    },
+    {
+        id: "toko-kue-jambi",
+        imgSrc: "/images/donut.jpg",
+        title: "Toko Kue Jambi",
+        description: "Toko Kue Jambi menjual aneka kue lezat untuk acara dan konsumsi harian...",
+        location: "Jalan Kota Baru, Kota Jambi"
+    },
+    {
+        id: "toko-donat-jambi",
+        imgSrc: "/images/kue.jpg",
+        title: "Toko Donat Jambi",
+        description: "Toko Donat Jambi menawarkan donat lembut dengan berbagai topping...",
+        location: "Jalan Kota Baru, Kota Jambi"
+    },
+    // (Data diulang 2x lagi agar jadi 9)
+    {
+        id: "toko-jas-jambi-2",
+        imgSrc: "/images/jas.jpg",
+        title: "Toko Jas Jambi 2",
+        description: "Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara...",
+        location: "Jalan Kota Baru, Kota Jambi"
+    },
+    {
+        id: "toko-kue-jambi-2",
+        imgSrc: "/images/donut.jpg",
+        title: "Toko Kue Jambi 2",
+        description: "Toko Kue Jambi menjual aneka kue lezat untuk acara dan konsumsi harian...",
+        location: "Jalan Kota Baru, Kota Jambi"
+    },
+    {
+        id: "toko-donat-jambi-2",
+        imgSrc: "/images/kue.jpg",
+        title: "Toko Donat Jambi 2",
+        description: "Toko Donat Jambi menawarkan donat lembut dengan berbagai topping...",
+        location: "Jalan Kota Baru, Kota Jambi"
+    },
+    {
+        id: "toko-jas-jambi-3",
+        imgSrc: "/images/jas.jpg",
+        title: "Toko Jas Jambi 3",
+        description: "Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara...",
+        location: "Jalan Kota Baru, Kota Jambi"
+    },
+    {
+        id: "toko-kue-jambi-3",
+        imgSrc: "/images/donut.jpg",
+        title: "Toko Kue Jambi 3",
+        description: "Toko Kue Jambi menjual aneka kue lezat untuk acara dan konsumsi harian...",
+        location: "Jalan Kota Baru, Kota Jambi"
+    },
+    {
+        id: "toko-donat-jambi-3",
+        imgSrc: "/images/kue.jpg",
+        title: "Toko Donat Jambi 3",
+        description: "Toko Donat Jambi menawarkan donat lembut dengan berbagai topping...",
+        location: "Jalan Kota Baru, Kota Jambi"
+    },
+];
 
 export default function UMKMCardSection() {
     return (
@@ -80,9 +146,10 @@ export default function UMKMCardSection() {
 
                 {/* Container Flexbox untuk Kartu */}
                 <div className="flex flex-wrap items-stretch justify-center gap-8">
-                    {dummyData.map((item, index) => (
+                    {dummyData.map((item) => (
                         <UmkmCard
-                            key={index}
+                            key={item.id}      // <-- Gunakan id unik untuk 'key'
+                            id={item.id}       // <-- Kirim 'id' sebagai prop
                             imgSrc={item.imgSrc}
                             title={item.title}
                             description={item.description}
