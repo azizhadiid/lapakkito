@@ -14,11 +14,8 @@ import { usePathname } from "next/navigation"
 
 export function Navbar() {
     const navItems = [
-        { name: "Beranda", href: "/" },
-        { name: "Tentang", href: "/tentang" },
-        { name: "UMKM", href: "/umkm" },
-        { name: "FAQ", href: "/faq" },
-        { name: "Kontak", href: "/kontak" },
+        { name: "Beranda", href: "/dashboard" },
+        { name: "Verifikasi", href: "/kelola-umkm" },
     ]
 
     // state untuk melacak status scroll
