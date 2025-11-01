@@ -29,7 +29,7 @@ export default function SectionOne() {
                 asChild // <-- 2. Tambahkan 'asChild'
                 className="mt-8 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105 animate-in fade-in slide-in-from-bottom-5"
               >
-                <Link href="/umkm">Kelola Verifikasi!</Link>
+                <Link href="/kelola-umkm">Kelola Verifikasi!</Link>
               </Button>
             </div>
             <div className="relative h-64 lg:h-full min-h-[300px] lg:ml-48">
