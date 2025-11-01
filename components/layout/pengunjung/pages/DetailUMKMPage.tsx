@@ -1,6 +1,7 @@
 "use client"
 
 import { MainLayoutPengunjung } from "../MainLayoutPengunjung";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
     Carousel,
@@ -11,11 +12,10 @@ import {
 } from "@/components/ui/carousel"
 import { Separator } from "@/components/ui/separator"
 import { UmkmDataProps } from "@/lib/type";
-import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp, FaMotorcycle, FaBusinessTime } from 'react-icons/fa';
 import { SiGojek, SiGrab, SiShopee } from 'react-icons/si';
 import {
-    User, CalendarDays, Instagram, Twitter, Youtube, Globe,
-    ShoppingBag, Bike, Store, Send
+    User, CalendarDays,
 } from "lucide-react"
 
 
@@ -30,19 +30,44 @@ function InfoIcon({ icon: Icon, text }: { icon: React.ElementType, text: string 
 }
 
 // Komponen Tombol Link Helper
-function LinkButton({ icon: Icon, text }: { icon: React.ElementType, text: string }) {
+function LinkButton({ href, icon: Icon, text }: { href: string; icon: React.ElementType; text: string }) {
     return (
         <Button
+            asChild // <-- Biarkan 'a' di dalam yang menjadi elemen utama
             variant="outline"
             className="h-10 w-10 p-0 bg-[#F7F6F6] shadow-sm animate-in fade-in slide-in-from-bottom-5 duration-700"
             aria-label={text}
         >
-            <Icon className="w-5 h-5 text-[#4E4039]" />
+            <a href={href} target="_blank" rel="noopener noreferrer">
+                <Icon className="w-5 h-5 text-[#4E4039]" />
+            </a>
         </Button>
     )
 }
 
+// --- Helper untuk format nomor WA ---
+function formatWaNumber(phone: string | null): string {
+    if (!phone) return "#"; // Fallback jika tidak ada nomor
+
+    // Hapus semua karakter non-digit
+    let formatted = phone.replace(/\D/g, '');
+
+    // Ganti '0' di depan dengan '62'
+    if (formatted.startsWith('0')) {
+        formatted = '62' + formatted.substring(1);
+    }
+    // Pastikan diawali 62
+    else if (!formatted.startsWith('62')) {
+        formatted = '62' + formatted;
+    }
+
+    return `https://wa.me/${formatted}`;
+}
+
 export default function DetailUMKMPage({ umkmData }: { umkmData: UmkmDataProps }) {
+    // Format link WA dari nomor_hp
+    const waLink = formatWaNumber(umkmData.nomor_hp);
+
     return (
         <MainLayoutPengunjung>
             <div className="bg-[#EFEFEF] py-24 md:py-32">
@@ -60,9 +85,12 @@ export default function DetailUMKMPage({ umkmData }: { umkmData: UmkmDataProps }
                                 <CarouselContent className="text-[#4E4039]">
                                     {umkmData.images.map((imgSrc, index) => (
                                         <CarouselItem key={index}>
-                                            <img
+                                            <Image
                                                 src={imgSrc}
                                                 alt={`${umkmData.name} - gambar ${index + 1}`}
+                                                width={800}
+                                                height={600}
+                                                priority={index === 0}
                                                 className="w-full h-auto aspect-[4/3] object-cover"
                                             />
                                         </CarouselItem>
@@ -109,10 +137,10 @@ export default function DetailUMKMPage({ umkmData }: { umkmData: UmkmDataProps }
                                     Link Sosial Media:
                                 </h3>
                                 <div className="flex flex-wrap gap-3">
-                                    <LinkButton icon={FaInstagram} text="FaInstagram" />
-                                    <LinkButton icon={FaTiktok} text="FaTiktok" />
-                                    <LinkButton icon={FaFacebook} text="FaFacebook" />
-                                    <LinkButton icon={FaWhatsapp} text="FaWhatsapp" />
+                                    {umkmData.link_instagram && <LinkButton href={umkmData.link_instagram} icon={FaInstagram} text="Instagram" />}
+                                    {umkmData.link_tiktok && <LinkButton href={umkmData.link_tiktok} icon={FaTiktok} text="Tiktok" />}
+                                    {umkmData.link_facebook && <LinkButton href={umkmData.link_facebook} icon={FaFacebook} text="Facebook" />}
+                                    {waLink !== "#" && <LinkButton href={waLink} icon={FaWhatsapp} text="Whatsapp" />}
                                 </div>
                             </div>
 
@@ -122,17 +150,24 @@ export default function DetailUMKMPage({ umkmData }: { umkmData: UmkmDataProps }
                                     Link Pesan Online:
                                 </h3>
                                 <div className="flex flex-wrap gap-3">
-                                    <LinkButton icon={SiShopee} text="SiShopee" />
-                                    <LinkButton icon={SiGojek} text="SiGojek" />
-                                    <LinkButton icon={SiGrab} text="SiGrab" />
+                                    {umkmData.link_shopee && <LinkButton href={umkmData.link_shopee} icon={SiShopee} text="ShopeeFood" />}
+                                    {umkmData.link_gojek && <LinkButton href={umkmData.link_gojek} icon={SiGojek} text="GoFood" />}
+                                    {umkmData.link_grab && <LinkButton href={umkmData.link_grab} icon={SiGrab} text="GrabFood" />}
+                                    {umkmData.link_tokopedia && <LinkButton href={umkmData.link_tokopedia} icon={FaBusinessTime} text="Tokopedia" />}
+                                    {umkmData.link_maxim && <LinkButton href={umkmData.link_maxim} icon={FaMotorcycle} text="Maxim" />}
                                 </div>
                             </div>
 
                             {/* Tombol CTA */}
-                            <Button className="
-                            w-full h-12 mt-4 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-300
-                            ">
-                                Hubungi Sekarang
+                            <Button
+                                asChild
+                                className="
+                                w-full h-12 mt-4 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105 animate-in fade-in slide-in-from-bottom-5 
+                                "
+                            >
+                                <a href={waLink} target="_blank" rel="noopener noreferrer">
+                                    Hubungi Sekarang
+                                </a>
                             </Button>
                         </div>
                     </div>

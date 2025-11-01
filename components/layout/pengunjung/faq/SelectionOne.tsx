@@ -2,9 +2,13 @@ export default function SectionOne({ faqs }: { faqs: { q: string; a: string }[] 
     return (
         <section className="relative py-23 md:py-30">
             <div className="max-w-xl md:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-2xl md:text-3xl text-center font-semibold text-[#4E4039] mb-2">Frequently Asked Questions</h1>
-                <p className=" mb-6 text-center text-sm md:text-base text-[#4E4039]">Pertanyaan yang sering diajukan tentang penggunaan LapakKito.</p>
-                
+                <h1 className="text-4xl md:text-5xl font-bold text-[#4E4039] mb-4 text-center">
+                    Ada yang Bisa Kami Bantu?
+                </h1>
+                <p className="mb-8 text-lg text-[#4E4039] text-center">
+                    Temukan jawaban cepat untuk pertanyaan umum di bawah ini.
+                </p>
+
                 {/* Desktop */}
                 <div className="hidden md:grid grid-cols-2 gap-x-3">
                     {(() => {

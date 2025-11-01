@@ -2,11 +2,13 @@ import { MapPin } from "lucide-react";
 import Link from "next/link";
 
 function UmkmCard({
+    id,
     imgSrc,
     title,
     description,
     location,
 }: {
+    id: string;
     imgSrc: string;
     title: string;
     description: string;
@@ -45,7 +47,10 @@ function UmkmCard({
                 </div>
 
                 {/* Button */}
-                <button className="w-full mt-4 py-3 px-6 bg-white border-2 border-[#D9534F] text-[#D9534F] rounded-lg font-semibold hover:bg-[#D9534F] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                <Link
+                    href={`/umkm/${id}`}
+                    className="w-full mt-4 py-3 px-6 bg-white border-2 border-[#D9534F] text-[#D9534F] rounded-lg font-semibold hover:bg-[#D9534F] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                >
                     <span>Lihat Detail</span>
                     <svg
                         className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"
@@ -55,7 +60,7 @@ function UmkmCard({
                     >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                </button>
+                </Link>
             </div>
         </div>
     );
@@ -73,18 +78,21 @@ export default async function SectionThree() {
 
                 <div className="flex flex-wrap items-stretch justify-center gap-8">
                     <UmkmCard
+                        id="toko-jas-jambi"
                         imgSrc="/images/jas.jpg"
                         title="Toko Jas Jambi"
                         description="Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara, dengan layanan penyesuaian dan konsultasi gaya."
                         location="Jalan Kota Baru, Kota Jambi"
                     />
                     <UmkmCard
+                        id="toko-kue-jambi"
                         imgSrc="/images/donut.jpg"
                         title="Toko Kue Jambi"
                         description="Toko Kue Jambi menjual aneka kue lezat untuk acara dan konsumsi harian, bisa dipesan langsung."
                         location="Jalan Kota Baru, Kota Jambi"
                     />
                     <UmkmCard
+                        id="toko-donat-jambi"
                         imgSrc="/images/kue.jpg"
                         title="Toko Donat Jambi"
                         description="Toko Donat Jambi menawarkan donat lembut dengan berbagai topping, cocok untuk camilan harian atau acara spesial."

@@ -3,8 +3,12 @@ export default function SelectionOne() {
         <>
             <section className="relative py-23 md:py-30">
                 <div className="max-w-xl md:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h1 className="text-2xl md:text-3xl text-center font-semibold text-[#4E4039] mb-2">Hubungi Kami</h1>
-                    <p className=" mb-6 text-center text-sm md:text-base text-[#4E4039]">Silahkan hubungi kami apabila terdapat saran, kritikan, kendala dan lainnya.</p>
+                    <h1 className="text-4xl md:text-5xl font-bold text-[#4E4039] mb-4 text-center">
+                        Hubungi Kami
+                    </h1>
+                    <p className="mb-8 text-lg text-[#4E4039] text-center">
+                        Silahkan hubungi kami apabila terdapat saran, kritikan, kendala dan lainnya.
+                    </p>
 
                     <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-y-8 md:gap-x-8">
                         {/* Kolom Kiri: Kirim Email */}
