@@ -24,8 +24,8 @@ export default function RegisterUMKMPage() {
 
                                 <SelectionOne />
                                 <SelectionTwo />
-                                <SelectionThree/>
-                                <SelectionFour/>
+                                <SelectionThree />
+                                <SelectionFour />
 
                             </div>
                         </form>
