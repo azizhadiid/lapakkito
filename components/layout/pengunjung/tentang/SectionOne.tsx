@@ -20,7 +20,6 @@ export default function SectionOne() {
                     <li>Terus berinovasi dengan fitur-fitur baru untuk memenuhi kebutuhan pasar yang berkembang.</li>
                 </ul>
             </div>
-
         </>
     )
 }
