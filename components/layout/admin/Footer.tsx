@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Mail, Phone, MapPin, Instagram, Twitter, Youtube, Globe } from "lucide-react"
+import Image from 'next/image';
 
 // Komponen helper untuk link di footer 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -32,7 +33,7 @@ function SocialIcon({ href, icon: Icon }: { href: string; icon: React.ElementTyp
 export default function Footer() {
     return (
         // Background #F7F6F6 dan Teks #4E4039
-        <footer className=" bg-[#4E4039] text-[#F7F6F6] border-t border-gray-200 fixed w-full bottom-0 left-0">
+        <footer className=" bg-[#4E4039] text-[#F7F6F6] border-t border-gray-200 w-full bottom-0 left-0">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
