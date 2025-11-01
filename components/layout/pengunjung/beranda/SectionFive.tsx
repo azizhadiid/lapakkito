@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function SectionFive() {
     return (
@@ -8,12 +9,22 @@ export default function SectionFive() {
 
                     {/* Judul */}
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#4E4039] leading-snug md:leading-tight animate-in fade-in slide-in-from-bottom-5 duration-700">
-                        Temukan dan hubungi UMKM Jambi dengan mudah semua informasi usaha dalam satu platform.
+                        Temukan dan hubungi UMKM Jambi dengan mudah, semua informasi usaha dalam satu platform.
                     </h2>
 
                     {/* Tombol */}
-                    <Button className="mt-8 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-200">
-                        Ayo Mulai Sekarang
+                    <Button
+                        asChild
+                        className="
+                            mt-8 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] 
+                            rounded-lg px-8 py-3 text-lg font-semibold 
+                            transition-transform hover:scale-105 
+                            animate-in fade-in slide-in-from-bottom-5 
+                        "
+                    >
+                        <Link href="/umkm">
+                            Jelajahi Semua UMKM
+                        </Link>
                     </Button>
 
                 </div>
