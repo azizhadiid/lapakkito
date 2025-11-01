@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function SectionOne() {
     return (
@@ -16,8 +17,11 @@ export default function SectionOne() {
                             Dukung UMKM untuk pertumbuhan ekonomi daerah. Temukan UMKM
                             lokal terbaik di Kota Jambi hanya dengan beberapa klik.
                         </p>
-                        <Button className="mt-8 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-300">
-                            Lihat UMKM!
+                        <Button
+                            asChild // <-- 2. Tambahkan 'asChild'
+                            className="mt-8 bg-[#E65A4B] text-[#EFEFEF] hover:bg-[#C9302C] rounded-lg px-8 py-3 text-lg font-semibold transition-transform hover:scale-105 animate-in fade-in slide-in-from-bottom-5"
+                        >
+                            <Link href="/umkm">Lihat UMKM!</Link>
                         </Button>
                     </div>
                     {/* Kolom Gambar */}
