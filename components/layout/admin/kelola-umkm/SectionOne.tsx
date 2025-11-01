@@ -234,19 +234,19 @@ export default function SectionOne() {
             <Table>
               <TableHeader className="bg-gray-50">
                 <TableRow>
-                  <TableHead className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <TableHead className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
                     UMKM
                   </TableHead>
-                  <TableHead className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <TableHead className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
                     Kategori
                   </TableHead>
-                  <TableHead className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <TableHead className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
                     Konten
                   </TableHead>
-                  <TableHead className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <TableHead className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
                     Verifikasi
                   </TableHead>
-                  <TableHead className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <TableHead className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
                     Status
                   </TableHead>
                 </TableRow>
@@ -254,17 +254,17 @@ export default function SectionOne() {
               <TableBody className="bg-white divide-y divide-gray-200">
                 {umkmData.map((umkm) => (
                   <TableRow key={umkm.id} className="hover:bg-gray-50">
-                    <TableCell className="px-6 py-4 whitespace-nowrap">
+                    <TableCell className="px-6 py-4 whitespace-nowrap text-center">
                       <span className="text-sm font-medium text-gray-900">
                         {umkm.name}
                       </span>
                     </TableCell>
-                    <TableCell className="px-6 py-4 whitespace-nowrap">
+                    <TableCell className="px-6 py-4 whitespace-nowrap text-center">
                       <span className="text-sm text-gray-700">
                         {umkm.category}
                       </span>
                     </TableCell>
-                    <TableCell className="px-6 py-4 whitespace-nowrap">
+                    <TableCell className="px-6 py-4 whitespace-nowrap text-center">
                       <div className="relative h-16 w-24 rounded-lg overflow-hidden">
                         <Image
                           src={umkm.imageUrl}
@@ -293,7 +293,7 @@ export default function SectionOne() {
                         </Button>
                       </div>
                     </TableCell>
-                    <TableCell className="px-6 py-4 whitespace-nowrap">
+                    <TableCell className="px-6 py-4 whitespace-nowrap text-center">
                       <StatusBadge status={umkm.status} />
                     </TableCell>
                   </TableRow>
