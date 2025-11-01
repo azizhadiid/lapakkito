@@ -35,7 +35,7 @@ Untuk menjalankan proyek ini secara lokal di komputer Anda, ikuti langkah-langka
     ```
 
 3.  **Buat file environment:**
-    Salin file `.env.example` (jika ada) menjadi `.env.local` dan isi variabel yang diperlukan (misal: API key untuk Google Maps, koneksi database, dll).
+    Salin file `.env.example` (jika ada) menjadi `.env.local` dan isi variabel yang diperlukan (misal: koneksi database, dll).
     ```bash
     cp .env.example .env.local
     ```
@@ -128,8 +128,8 @@ Proyek ini masih dalam tahap pengembangan aktif. Fitur yang sudah berhasil diimp
 
     ![Halaman Beranda](/public/images/screenshot/ss1.png)
     * Hero Section dengan animasi.
-    * Section "Bagaimana Bekerja".
-    * Section "UMKM Unggulan" (menggunakan `Suspense` dan `Skeleton`).
+    * Section "Bagaimana ini Bekerja".
+    * Section "UMKM tersedia saat ini" (menggunakan `Suspense` dan `Skeleton`).
     * Section "Testimonial".
     * Footer lengkap.
 
@@ -151,7 +151,7 @@ Proyek ini masih dalam tahap pengembangan aktif. Fitur yang sudah berhasil diimp
     ![Halaman Detail UMKM](/public/images/screenshot/ss4.png)
     * Layout 2 kolom (Galeri & Info).
     * Carousel gambar produk.
-    * Info detail (Nama, Kategori, Author, Deskripsi).
+    * Info detail (Nama, Kategori, Pemilik, Deskripsi).
     * Link Sosial Media & Pesan Online.
     * Embed Google Maps.
     * **Loading State:** Implementasi `loading.tsx` untuk menampilkan skeleton saat data diambil.
