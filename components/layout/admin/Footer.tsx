@@ -60,7 +60,7 @@ export default function Footer() {
           <div className="flex flex-col items-center text-center md:items-start md:text-left md:col-span-2 lg:col-span-2">
             <Link href="/" className="mb-4">
               <img
-                src="/images/logo-vertikal.png"
+                src="/images/white-logo-vertikal.png"
                 alt="Lapak Kito Logo"
                 className="h-13 w-auto"
               />
