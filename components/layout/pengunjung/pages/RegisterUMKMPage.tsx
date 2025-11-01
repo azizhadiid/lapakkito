@@ -21,12 +21,10 @@ export default function RegisterUMKMPage() {
                     <div className="bg-white shadow-lg rounded-lg p-8 md:p-10">
                         <form action="#" method="POST">
                             <div className="space-y-10">
-
                                 <SelectionOne />
                                 <SelectionTwo />
                                 <SelectionThree />
                                 <SelectionFour />
-
                             </div>
                         </form>
                     </div>
