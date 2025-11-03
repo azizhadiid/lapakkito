@@ -19,3 +19,31 @@ export type UmkmDataProps = {
     link_shopee: string | null;
     link_tokopedia: string | null;
 }
+
+export interface FormData {
+    nama_usaha: string;
+    nama_pemilik: string;
+    email: string; // BARU (dari SelectionOne)
+    nomor_hp: string;
+    alamat: string;
+    lokasi_gmap: string;
+    kategori: string;
+    tahun_berdiri: string;
+    deskripsi: string;
+    link_instagram: string;
+    link_tiktok: string;
+    link_facebook: string;
+    link_gojek: string;
+    link_grab: string;
+    link_maxim: string;
+    link_shopee: string;
+    link_tokopedia: string;
+}
+
+export interface FileData {
+    foto_1: File | null;
+    foto_2: File | null;
+    foto_3: File | null;
+    foto_4: File | null;
+    foto_5: File | null;
+}

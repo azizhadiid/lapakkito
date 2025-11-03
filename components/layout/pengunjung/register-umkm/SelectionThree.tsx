@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, ChangeEvent } from "react"
 import { UploadCloud } from "lucide-react";
 
 type PreviewState = Record<string, string>;
@@ -49,12 +49,18 @@ function ImageUploadBox({
     )
 }
 
+// Tentukan tipe props
+interface SelectionThreeProps {
+    onFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
 
-export default function SelectionThree() {
+export default function SelectionThree({ onFileChange }: SelectionThreeProps) {
 
     const [previews, setPreviews] = useState<PreviewState>({});
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onFileChange(e);
+
         const { name, files } = e.target;
         if (files && files[0]) {
             const file = files[0];

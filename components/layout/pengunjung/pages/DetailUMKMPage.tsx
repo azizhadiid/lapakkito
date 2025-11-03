@@ -12,11 +12,12 @@ import {
 } from "@/components/ui/carousel"
 import { Separator } from "@/components/ui/separator"
 import { UmkmDataProps } from "@/lib/type";
-import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp, FaMotorcycle, FaBusinessTime } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp, FaMotorcycle } from 'react-icons/fa';
 import { SiGojek, SiGrab, SiShopee } from 'react-icons/si';
 import {
     User, CalendarDays,
 } from "lucide-react"
+import { LuStore } from 'react-icons/lu';
 
 
 // Komponen Ikon Helper
@@ -153,7 +154,7 @@ export default function DetailUMKMPage({ umkmData }: { umkmData: UmkmDataProps }
                                     {umkmData.link_shopee && <LinkButton href={umkmData.link_shopee} icon={SiShopee} text="ShopeeFood" />}
                                     {umkmData.link_gojek && <LinkButton href={umkmData.link_gojek} icon={SiGojek} text="GoFood" />}
                                     {umkmData.link_grab && <LinkButton href={umkmData.link_grab} icon={SiGrab} text="GrabFood" />}
-                                    {umkmData.link_tokopedia && <LinkButton href={umkmData.link_tokopedia} icon={FaBusinessTime} text="Tokopedia" />}
+                                    {umkmData.link_tokopedia && <LinkButton href={umkmData.link_tokopedia} icon={LuStore} text="Tokopedia" />}
                                     {umkmData.link_maxim && <LinkButton href={umkmData.link_maxim} icon={FaMotorcycle} text="Maxim" />}
                                 </div>
                             </div>
