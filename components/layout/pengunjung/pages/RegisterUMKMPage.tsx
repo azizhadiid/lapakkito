@@ -195,7 +195,7 @@ export default function RegisterUMKMPage() {
 
             // === 4. INSERT DATA KE DATABASE ===
             const { error: insertError } = await supabase
-                .from("umkm") // Nama tabel Anda
+                .from("umkm")
                 .insert(dataToInsert);
 
             if (insertError) {

@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useState, useEffect, ChangeEvent } from "react"
+import { useState, useEffect, ChangeEvent } from "react"
 import { UploadCloud } from "lucide-react";
+import Swal from 'sweetalert2';
 
 type PreviewState = Record<string, string>;
 
@@ -10,12 +11,12 @@ function ImageUploadBox({
     name,
     label,
     previewUrl,
-    onChange
+    onChange // Tipe data onChange disesuaikan
 }: {
     name: string;
     label: string;
     previewUrl: string | undefined;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void; // Gunakan tipe ini
 }) {
     return (
         <div className="w-full md:w-[calc((100%-3rem)/3)] space-y-2">
@@ -27,10 +28,8 @@ function ImageUploadBox({
                 className="flex flex-col items-center justify-center w-full aspect-video border-2 border-gray-300 border-dashed rounded-md cursor-pointer bg-gray-50 hover:bg-gray-100 overflow-hidden relative"
             >
                 {previewUrl ? (
-                    // Tampilan jika gambar sudah dipilih
                     <img src={previewUrl} alt={`${label} Preview`} className="w-full h-full object-cover" />
                 ) : (
-                    // Tampilan default (placeholder)
                     <div className="flex flex-col items-center justify-center text-gray-500">
                         <UploadCloud className="w-8 h-8 mb-2" />
                         <span className="text-sm font-semibold">Upload File</span>
@@ -54,28 +53,56 @@ interface SelectionThreeProps {
     onFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
+
 export default function SelectionThree({ onFileChange }: SelectionThreeProps) {
 
     const [previews, setPreviews] = useState<PreviewState>({});
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, files } = e.target;
+
+        if (!files || files.length === 0) {
+            return; // Tidak ada file, keluar
+        }
+
+        const file = files[0];
+
+        // === VALIDASI UKURAN FILE ===
+        if (file.size > MAX_FILE_SIZE) {
+            // Tampilkan error menggunakan SweetAlert
+            Swal.fire({
+                title: 'Ukuran File Terlalu Besar',
+                text: `File "${file.name}" melebihi batas 2MB.`,
+                icon: 'error',
+                confirmButtonColor: '#E65A4B' // Warna tombol error
+            });
+
+            // Penting: Reset input file agar user bisa memilih file lain
+            // (termasuk memilih file yang sama setelah mereka resize)
+            e.target.value = "";
+
+            return; // Hentikan fungsi di sini
+        }
+        // === AKHIR VALIDASI ===
+
+        // Jika file VALID, lanjutkan seperti biasa:
+
+        // 1. Panggil handler dari Induk (page.tsx)
         onFileChange(e);
 
-        const { name, files } = e.target;
-        if (files && files[0]) {
-            const file = files[0];
-            const newPreviewUrl = URL.createObjectURL(file);
+        // 2. Jalankan logika preview internal
+        const newPreviewUrl = URL.createObjectURL(file);
 
-            setPreviews(prev => {
-                if (prev[name]) {
-                    URL.revokeObjectURL(prev[name]);
-                }
-                return {
-                    ...prev,
-                    [name]: newPreviewUrl
-                };
-            });
-        }
+        setPreviews(prev => {
+            if (prev[name]) {
+                URL.revokeObjectURL(prev[name]);
+            }
+            return {
+                ...prev,
+                [name]: newPreviewUrl
+            };
+        });
     };
 
     useEffect(() => {
@@ -85,11 +112,11 @@ export default function SelectionThree({ onFileChange }: SelectionThreeProps) {
     }, [previews]);
 
     const uploadSlots = [
-        { id: "foto-1", label: "Foto 1 (Cover)" },
-        { id: "foto-2", label: "Foto 2" },
-        { id: "foto-3", label: "Foto 3" },
-        { id: "foto-4", label: "Foto 4" },
-        { id: "foto-5", label: "Foto 5" },
+        { id: "foto_1", label: "Foto 1 (Cover)" },
+        { id: "foto_2", label: "Foto 2" },
+        { id: "foto_3", label: "Foto 3" },
+        { id: "foto_4", label: "Foto 4" },
+        { id: "foto_5", label: "Foto 5" },
     ];
 
     return (
