@@ -77,6 +77,7 @@ Project ini membutuhkan beberapa kunci API untuk terhubung ke layanan eksternal 
       nama_usaha text NOT NULL CHECK (char_length(nama_usaha) >= 3),
       nama_pemilik text NOT NULL CHECK (char_length(nama_pemilik) >= 3),
       nomor_hp text,
+      email text,
       alamat text,
       lokasi_gmap text,
       status boolean DEFAULT false NOT NULL,

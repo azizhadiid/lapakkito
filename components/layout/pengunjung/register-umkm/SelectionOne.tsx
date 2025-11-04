@@ -112,7 +112,7 @@ export default function SelectionOne({
                 </FormField>
 
                 <FormField>
-                    <Label htmlFor="tahun_berdiri">Tanggal dan Tahun Berdiri</Label>
+                    <Label htmlFor="tahun_berdiri">Tahun Berdiri</Label>
                     <Input
                         type="date"
                         id="tahun_berdiri"
