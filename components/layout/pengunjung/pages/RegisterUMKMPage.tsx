@@ -226,11 +226,21 @@ export default function RegisterUMKMPage() {
             setDeskripsiCount(0);
             (e.target as HTMLFormElement).reset(); // Reset input file
 
-        } catch (error: any) {
-            console.error(error);
+        } catch (error: unknown) {
+            console.error("Kesalahan saat submit form:", error);
+
+            let errorMessage = "Terjadi kesalahan yang tidak diketahui.";
+
+            // Periksa tipe error sebelum mengakses .message
+            if (error instanceof Error) {
+                errorMessage = `Gagal mendaftar: ${error.message}`;
+            } else if (typeof error === 'string') {
+                errorMessage = error;
+            }
+
             Swal.fire({
                 title: 'Terjadi Kesalahan',
-                text: `Gagal mendaftar: ${error.message}`,
+                text: errorMessage,
                 icon: 'error',
                 confirmButtonColor: '#E65A4B'
             });

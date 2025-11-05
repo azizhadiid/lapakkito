@@ -8,7 +8,6 @@ import {
   Youtube,
   Globe,
 } from "lucide-react";
-import Image from "next/image";
 
 // Komponen helper untuk link di footer
 function FooterLink({

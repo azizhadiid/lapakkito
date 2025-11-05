@@ -1,15 +1,10 @@
 import React from "react";
-import type { NextPage } from "next";
 import Image from "next/image";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import IlsLogin from "@/public/iconlogin.svg";
 import Logo from "@/public/images/logo-vertikal.png";

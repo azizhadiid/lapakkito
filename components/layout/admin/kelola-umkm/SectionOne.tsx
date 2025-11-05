@@ -30,9 +30,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { MapPin } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { Search, ChevronDown } from "lucide-react";
 import { XCircle, CheckCircle2 } from "lucide-react";
 
