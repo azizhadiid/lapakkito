@@ -44,7 +44,7 @@ export default function SelectionOne({
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-[#4E4039]">
                 <FormField>
-                    <Label htmlFor="nama_pemilik">Nama Pemilik UMKM</Label>
+                    <Label htmlFor="nama_pemilik">Nama Pemilik UMKM*</Label>
                     <Input
                         type="text"
                         id="nama_pemilik"
@@ -55,7 +55,7 @@ export default function SelectionOne({
                 </FormField>
 
                 <FormField>
-                    <Label htmlFor="nama_usaha">Nama UMKM / Usaha</Label>
+                    <Label htmlFor="nama_usaha">Nama UMKM / Usaha*</Label>
                     <Input
                         type="text"
                         id="nama_usaha"
@@ -66,7 +66,7 @@ export default function SelectionOne({
                 </FormField>
 
                 <FormField>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">Email*</Label>
                     <Input
                         type="email"
                         id="email"
@@ -78,7 +78,7 @@ export default function SelectionOne({
                 </FormField>
 
                 <FormField>
-                    <Label htmlFor="no_handphone">No. Handphone (WhatsApp)</Label>
+                    <Label htmlFor="no_handphone">No. Handphone (WhatsApp)*</Label>
                     <Input
                         type="tel"
                         id="nomor_hp"
@@ -90,7 +90,7 @@ export default function SelectionOne({
                 </FormField>
 
                 <FormField>
-                    <Label htmlFor="kategori">Kategori Usaha</Label>
+                    <Label htmlFor="kategori">Kategori Usaha*</Label>
                     <Select
                         name="kategori"
                         value={formData.kategori}
@@ -112,7 +112,7 @@ export default function SelectionOne({
                 </FormField>
 
                 <FormField>
-                    <Label htmlFor="tahun_berdiri">Tahun Berdiri</Label>
+                    <Label htmlFor="tahun_berdiri">Tahun Berdiri*</Label>
                     <Input
                         type="date"
                         id="tahun_berdiri"
@@ -123,7 +123,7 @@ export default function SelectionOne({
                 </FormField>
 
                 <FormField className="md:col-span-2">
-                    <Label htmlFor="deskripsi">Deskripsi Singkat UMKM</Label>
+                    <Label htmlFor="deskripsi">Deskripsi Singkat UMKM*</Label>
                     <Textarea
                         id="deskripsi"
                         name="deskripsi"
@@ -139,7 +139,7 @@ export default function SelectionOne({
                 </FormField>
 
                 <FormField className="md:col-span-2">
-                    <Label htmlFor="alamat">Alamat Lengkap Usaha</Label>
+                    <Label htmlFor="alamat">Alamat Lengkap Usaha*</Label>
                     <Textarea
                         id="alamat"
                         name="alamat"
@@ -151,7 +151,7 @@ export default function SelectionOne({
                 </FormField>
 
                 <FormField className="md:col-span-2">
-                    <Label htmlFor="lokasi_gmaps">Link Embed Google Maps</Label>
+                    <Label htmlFor="lokasi_gmaps">Link Embed Google Maps*</Label>
                     <Input
                         type="url"
                         id="lokasi_gmap"

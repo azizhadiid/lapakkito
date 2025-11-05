@@ -2,6 +2,7 @@
 export type UmkmDataProps = {
     name: string;
     category: string;
+    email: string;
     author: string;
     date: string;
     description: string;
