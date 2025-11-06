@@ -10,12 +10,30 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Search, ChevronDown } from "lucide-react";
 
-export default function UmkmHeroSection() {
+interface HeroProps {
+  setSearchQuery: (query: string) => void;
+  setCategory: (category: string) => void;
+  selectedCategory: string;
+}
+
+export default function UmkmHeroSection({
+  setSearchQuery,
+  setCategory,
+  selectedCategory
+}: HeroProps) {
+  const categories = [
+    "Kuliner (FnB)",
+    "Fashion (Pakaian)",
+    "Kriya (Kerajinan)",
+    "Jasa",
+    "Agribisnis",
+    "Kesehatan & Kecantikan",
+    "Lainnya"
+  ];
+
   return (
-    // Menggunakan background #EFEFEF yang konsisten dengan Hero di Beranda
     <section className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 bg-[#EFEFEF]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Pembungkus untuk menengahkan semua konten */}
         <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
           {/* === 1. Judul === */}
           <h1
@@ -48,14 +66,13 @@ export default function UmkmHeroSection() {
             animate-in fade-in slide-in-from-bottom-5 duration-700 delay-300
             "
           >
-            {/* Input dengan Ikon */}
             <div className="relative w-full">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
               <Input
                 type="search"
                 placeholder="Cari UMKM..."
-                // Styling agar lebih besar dan sesuai desain
                 className="h-12 pl-12 pr-4 rounded-lg bg-white shadow-sm"
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
 
@@ -70,16 +87,20 @@ export default function UmkmHeroSection() {
                   flex items-center gap-2
                 "
                 >
-                  <span>Pilih Kategori</span>
+                  <span>{selectedCategory}</span>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white">
-                {/* Ganti dengan data kategori Anda */}
-                <DropdownMenuItem>Kuliner</DropdownMenuItem>
-                <DropdownMenuItem>Fashion</DropdownMenuItem>
-                <DropdownMenuItem>Jasa</DropdownMenuItem>
-                <DropdownMenuItem>Kriya</DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => setCategory("Semua Kategori")}>
+                  Semua Kategori
+                </DropdownMenuItem>
+
+                {categories.map((cat) => (
+                  <DropdownMenuItem key={cat} onSelect={() => setCategory(cat)}>
+                    {cat}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

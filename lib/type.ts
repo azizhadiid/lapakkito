@@ -21,6 +21,16 @@ export type UmkmDataProps = {
     link_tokopedia: string | null;
 }
 
+// Untuk Halaman UMKM
+export type UmkmCardData = {
+    id: string;
+    nama_usaha: string;
+    deskripsi: string;
+    alamat: string | null;
+    foto_1: string | null;
+    kategori: string;
+};
+
 export interface FormData {
     nama_usaha: string;
     nama_pemilik: string;

@@ -1,6 +1,13 @@
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+"use client";
+
+import { useState, useEffect, useMemo } from "react";
+
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { MapPin } from "lucide-react";
 import Link from "next/link";
+import { UmkmCardData } from "@/lib/type";
+import supabase from "@/lib/db";
+import UmkmPageSectionSkeletonCard from "@/components/skeletons/UmkmSectionSkeletonForPage";
 
 function UmkmCard({
     id,
@@ -53,7 +60,7 @@ function UmkmCard({
 
                 {/* Button */}
                 <Link
-                    href={`/umkm/${id}`} // <-- Gunakan 'id' untuk href dinamis
+                    href={`/umkm/${id}`}
                     className="w-full mt-4 py-3 px-6 bg-white border-2 border-[#D9534F] text-[#D9534F] rounded-lg font-semibold hover:bg-[#D9534F] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
                 >
                     <span>Lihat Detail</span>
@@ -71,74 +78,78 @@ function UmkmCard({
     );
 }
 
-const dummyData = [
-    {
-        id: "toko-jas-jambi",
-        imgSrc: "/images/jas.jpg",
-        title: "Toko Jas Jambi",
-        description: "Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara...",
-        location: "Jalan Kota Baru, Kota Jambi"
-    },
-    {
-        id: "toko-kue-jambi",
-        imgSrc: "/images/donut.jpg",
-        title: "Toko Kue Jambi",
-        description: "Toko Kue Jambi menjual aneka kue lezat untuk acara dan konsumsi harian...",
-        location: "Jalan Kota Baru, Kota Jambi"
-    },
-    {
-        id: "toko-donat-jambi",
-        imgSrc: "/images/kue.jpg",
-        title: "Toko Donat Jambi",
-        description: "Toko Donat Jambi menawarkan donat lembut dengan berbagai topping...",
-        location: "Jalan Kota Baru, Kota Jambi"
-    },
-    // (Data diulang 2x lagi agar jadi 9)
-    {
-        id: "toko-jas-jambi-2",
-        imgSrc: "/images/jas.jpg",
-        title: "Toko Jas Jambi 2",
-        description: "Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara...",
-        location: "Jalan Kota Baru, Kota Jambi"
-    },
-    {
-        id: "toko-kue-jambi-2",
-        imgSrc: "/images/donut.jpg",
-        title: "Toko Kue Jambi 2",
-        description: "Toko Kue Jambi menjual aneka kue lezat untuk acara dan konsumsi harian...",
-        location: "Jalan Kota Baru, Kota Jambi"
-    },
-    {
-        id: "toko-donat-jambi-2",
-        imgSrc: "/images/kue.jpg",
-        title: "Toko Donat Jambi 2",
-        description: "Toko Donat Jambi menawarkan donat lembut dengan berbagai topping...",
-        location: "Jalan Kota Baru, Kota Jambi"
-    },
-    {
-        id: "toko-jas-jambi-3",
-        imgSrc: "/images/jas.jpg",
-        title: "Toko Jas Jambi 3",
-        description: "Toko Jas Jambi menyediakan jas formal dan semi-formal untuk berbagai acara...",
-        location: "Jalan Kota Baru, Kota Jambi"
-    },
-    {
-        id: "toko-kue-jambi-3",
-        imgSrc: "/images/donut.jpg",
-        title: "Toko Kue Jambi 3",
-        description: "Toko Kue Jambi menjual aneka kue lezat untuk acara dan konsumsi harian...",
-        location: "Jalan Kota Baru, Kota Jambi"
-    },
-    {
-        id: "toko-donat-jambi-3",
-        imgSrc: "/images/kue.jpg",
-        title: "Toko Donat Jambi 3",
-        description: "Toko Donat Jambi menawarkan donat lembut dengan berbagai topping...",
-        location: "Jalan Kota Baru, Kota Jambi"
-    },
-];
+interface CardSectionProps {
+    searchQuery: string;
+    category: string;
+}
 
-export default function UMKMCardSection() {
+export default function UMKMCardSection({ searchQuery, category }: CardSectionProps) {
+    // State untuk render card
+    const [allUmkm, setAllUmkm] = useState<UmkmCardData[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // State untuk pegination
+    const [currentPage, setCurrentPage] = useState(1);
+    const CARDS_PER_PAGE = 9;
+
+    useEffect(() => {
+        const fetchUmkm = async () => {
+            setIsLoading(true);
+            const { data, error } = await supabase
+                .from('umkm')
+                .select('id, nama_usaha, deskripsi, alamat, foto_1, kategori')
+                .eq('status', true);
+
+            if (error) {
+                console.error("Gagal fetch UMKM:", error.message);
+            } else if (data) {
+                setAllUmkm(data as UmkmCardData[]);
+            }
+            setIsLoading(false);
+        };
+
+        fetchUmkm();
+    }, []);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery, category]);
+
+    const filteredUmkm = useMemo(() => {
+        return allUmkm
+            .filter(umkm =>
+                umkm.nama_usaha.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .filter(umkm =>
+                category === "Semua Kategori" || umkm.kategori === category
+            );
+    }, [allUmkm, searchQuery, category]);
+
+    // --- Kalkulasi total halaman & data untuk halaman ini ---
+    const totalPages = Math.ceil(filteredUmkm.length / CARDS_PER_PAGE);
+
+    const currentCards = useMemo(() => {
+        const firstCardIndex = (currentPage - 1) * CARDS_PER_PAGE;
+        const lastCardIndex = firstCardIndex + CARDS_PER_PAGE;
+        return filteredUmkm.slice(firstCardIndex, lastCardIndex);
+    }, [filteredUmkm, currentPage]); // <-- 'currentCards' dihitung ulang jika filter atau halaman berubah
+
+    const handlePageChange = (page: number) => {
+        if (page < 1 || page > totalPages) return;
+        setCurrentPage(page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    if (isLoading) {
+        return (
+            <section className="py-16 md:py-24 bg-[#E2E0DD]">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <UmkmPageSectionSkeletonCard />
+                </div>
+            </section>
+        );
+    }
+
     return (
         // Latar belakang #E2E0DD agar konsisten dengan halaman Beranda
         <section className="py-16 md:py-24 bg-[#E2E0DD]">
@@ -146,46 +157,68 @@ export default function UMKMCardSection() {
 
                 {/* Container Flexbox untuk Kartu */}
                 <div className="flex flex-wrap items-stretch justify-center gap-8">
-                    {dummyData.map((item) => (
-                        <UmkmCard
-                            key={item.id}      // <-- Gunakan id unik untuk 'key'
-                            id={item.id}       // <-- Kirim 'id' sebagai prop
-                            imgSrc={item.imgSrc}
-                            title={item.title}
-                            description={item.description}
-                            location={item.location}
-                        />
-                    ))}
+                    {currentCards.length > 0 ? (
+                        <div className="flex flex-wrap items-stretch justify-center gap-8">
+                            {currentCards.map((item) => (
+                                <UmkmCard
+                                    key={item.id}
+                                    id={item.id}
+                                    imgSrc={item.foto_1 || "/images/placeholder.png"}
+                                    title={item.nama_usaha}
+                                    description={item.deskripsi}
+                                    location={item.alamat || "Lokasi tidak tersedia"}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-16">
+                            <h3 className="text-2xl font-bold text-[#4E4039]">
+                                Tidak Ada UMKM Ditemukan
+                            </h3>
+                            <p className="text-lg text-gray-700 mt-2">
+                                Coba ganti kata kunci pencarian atau filter kategori Anda.
+                            </p>
+                        </div>
+                    )}
                 </div>
 
                 {/* === Pagination === */}
-                <div className="mt-16">
-                    <Pagination>
-                        <PaginationContent>
-                            <PaginationItem>
-                                <PaginationPrevious href="#" />
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#" isActive>1</PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#">2</PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationEllipsis />
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#">9</PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#">10</PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationNext href="#" />
-                            </PaginationItem>
-                        </PaginationContent>
-                    </Pagination>
-                </div>
+                {totalPages > 1 && (
+                    <div className="mt-16">
+                        <Pagination>
+                            <PaginationContent>
+                                {/* --- Tombol Previous --- */}
+                                <PaginationItem>
+                                    <PaginationPrevious
+                                        onClick={() => handlePageChange(currentPage - 1)}
+                                        className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                    />
+                                </PaginationItem>
+
+                                {/* --- Nomor Halaman --- */}
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                                    <PaginationItem key={page}>
+                                        <PaginationLink
+                                            onClick={() => handlePageChange(page)}
+                                            isActive={currentPage === page}
+                                            className={currentPage !== page ? "cursor-pointer" : ""}
+                                        >
+                                            {page}
+                                        </PaginationLink>
+                                    </PaginationItem>
+                                ))}
+
+                                {/* --- Tombol Next --- */}
+                                <PaginationItem>
+                                    <PaginationNext
+                                        onClick={() => handlePageChange(currentPage + 1)}
+                                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                    />
+                                </PaginationItem>
+                            </PaginationContent>
+                        </Pagination>
+                    </div>
+                )}
             </div>
         </section>
     );
