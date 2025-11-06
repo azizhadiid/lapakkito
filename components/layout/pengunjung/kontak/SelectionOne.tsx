@@ -1,4 +1,64 @@
+'use client'; // Tambahkan ini jika Anda menggunakan App Router (Next.js 13+)
+
+import { useState, FormEvent } from 'react';
+
+// Tipe untuk status pengiriman
+type StatusType = 'idle' | 'loading' | 'success' | 'error';
+
 export default function SelectionOne() {
+    // State untuk data form
+    const [formData, setFormData] = useState({
+        email: '',
+        subject: '',
+        message: '',
+    });
+
+    // State untuk status pengiriman
+    const [status, setStatus] = useState<StatusType>('idle');
+    const [responseMessage, setResponseMessage] = useState('');
+
+    // Handler untuk mengubah input
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [id]: value,
+        }));
+    };
+
+    // Handler untuk submit form
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // Mencegah refresh halaman
+        setStatus('loading');
+        setResponseMessage('');
+
+        try {
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setStatus('success');
+                setResponseMessage(data.message || 'Pesan berhasil terkirim!');
+                // Kosongkan form setelah berhasil
+                setFormData({ email: '', subject: '', message: '' });
+            } else {
+                setStatus('error');
+                setResponseMessage(data.error || 'Terjadi kesalahan.');
+            }
+        } catch (error) {
+            console.error('Error on submit:', error);
+            setStatus('error');
+            setResponseMessage('Tidak dapat terhubung ke server.');
+        }
+    };
+
     return (
         <>
             <section className="relative py-23 md:py-30">
@@ -14,12 +74,15 @@ export default function SelectionOne() {
                         {/* Kolom Kiri: Kirim Email */}
                         <div>
                             <h2 className="text-xl font-semibold text-[#4E4039] mb-4">Kirim Pesan</h2>
-                            <form className="space-y-4">
+                            <form className="space-y-4" onSubmit={handleSubmit}>
                                 <div>
                                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                                     <input
                                         type="email"
                                         id="email"
+                                        value={formData.email} 
+                                        onChange={handleChange} 
+                                        required 
                                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-[#E65A4B] focus:border-[#E65A4B]"
                                         placeholder="Masukkan email Anda"
                                     />
@@ -29,25 +92,46 @@ export default function SelectionOne() {
                                     <input
                                         type="text"
                                         id="subject"
+                                        value={formData.subject} 
+                                        onChange={handleChange} 
+                                        required 
                                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-[#E65A4B] focus:border-[#E65A4B]"
                                         placeholder="Subjek pesan"
                                     />
                                 </div>
                                 <div>
                                     <label htmlFor="message" className="block text-sm font-medium text-gray-700">Pesan</label>
-                                    <textarea id="message"
+                                    <textarea
+                                        id="message"
                                         rows={4}
+                                        value={formData.message} 
+                                        onChange={handleChange} 
+                                        required 
                                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                                         placeholder="Tulis pesan Anda di sini"
                                     ></textarea>
                                 </div>
-                                <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#E65A4B] hover:bg-[#C9302C] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E65A4B]">
-                                    Kirim Pesan
+
+                                {/* Tombol Kirim dengan status loading */}
+                                <button
+                                    type="submit"
+                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#E65A4B] hover:bg-[#C9302C] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E65A4B] disabled:opacity-50"
+                                    disabled={status === 'loading'} // Nonaktifkan tombol saat loading
+                                >
+                                    {status === 'loading' ? 'Mengirim...' : 'Kirim Pesan'}
                                 </button>
+
+                                {/* Pesan Feedback untuk User */}
+                                {status === 'success' && (
+                                    <p className="mt-2 text-sm text-center text-green-600">{responseMessage}</p>
+                                )}
+                                {status === 'error' && (
+                                    <p className="mt-2 text-sm text-center text-red-600">{responseMessage}</p>
+                                )}
                             </form>
                         </div>
 
-                        {/* Kolom Kanan: Informasi Kontak */}
+                        {/* Kolom Kanan: Informasi Kontak (Tidak berubah) */}
                         <div className="relative md:before:content-[''] md:before:absolute md:before:w-px md:before:h-full md:before:bg-gray-300 md:before:top-0 md:before:-left-4 md:pl-4">
                             <h2 className="text-xl font-semibold text-[#4E4039] mb-4">Informasi Kontak</h2>
                             <div className="space-y-4">
@@ -62,7 +146,7 @@ export default function SelectionOne() {
                                         className="h-6 w-6 text-[#E65A4B] mr-3"
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"
-                                        fill="currentColor" /* <-- Pastikan ini 'fill', bukan 'stroke' */
+                                        fill="currentColor"
                                     >
                                         <path
                                             fillRule="evenodd"
@@ -70,7 +154,6 @@ export default function SelectionOne() {
                                             clipRule="evenodd"
                                         />
                                     </svg>
-                                    {/* Ganti teks placeholder ini dengan teks Anda dari gambar */}
                                     <p className="text-[#4E4039]">Jl. Jambi - Muara Bulian No.KM. 15, Mendalo Darat</p>
                                 </div>
                                 <div className="flex items-center">
