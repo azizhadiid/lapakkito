@@ -8,4 +8,5 @@ export const metadata: Metadata = {
 export default function KontakPagePengunjung() {
     // mengembalikan komponen Kontak Page sebagai client-side rendering
     return <KontakPage />;
+    // //////
 }
