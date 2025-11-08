@@ -1,15 +1,39 @@
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
+
 import React from "react";
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import IlsLogin from "@/public/iconlogin.svg";
 import Logo from "@/public/images/logo-vertikal.png";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) {
+      if (error.message.includes("Invalid login credentials")) {
+        setErrorMsg("Email atau password salah. Coba lagi ya!");
+      } else if (error.message.includes("Email not confirmed")) {
+        setErrorMsg("Email kamu belum dikonfirmasi. Cek kotak masuk kamu!");
+      } else {
+        setErrorMsg("Terjadi kesalahan. Coba beberapa saat lagi.");
+      }
+      return;
+    } else router.push("/dashboard");
+  };
+
   return (
     <main className="min-h-screen bg-[#4E4039] lg:bg-[rgb(226,224,221)]  flex items-center justify-center lg:justify-end p-4">
       <section className="w-full max-w-md lg:mr-50">
@@ -37,18 +61,19 @@ export default function Login() {
               </CardTitle>
             </section>
 
-            <form action="" className="space-y-4 sm:space-y-5">
+            <form onSubmit={handleLogin} className="space-y-4 sm:space-y-5">
               <div>
                 <label
                   htmlFor="username"
                   className="block text-[#4E4039] mb-2 text-sm sm:text-base"
                 >
-                  Username
+                  Email
                 </label>
                 <input
-                  type="text"
-                  id="username"
-                  placeholder="Inputkan username"
+                  type="email"
+                  id="email"
+                  placeholder="Inputkan email"
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full py-3 px-4 sm:px-5 rounded-xl border border-[#4E4039] focus:outline-none focus:ring-2 focus:ring-[#4E4039] focus:border-transparent transition-all"
                 />
               </div>
@@ -64,6 +89,7 @@ export default function Login() {
                   type="password"
                   id="password"
                   placeholder="Inputkan password"
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full py-3 px-4 sm:px-5 rounded-xl border border-[#4E4039] focus:outline-none focus:ring-2 focus:ring-[#4E4039] focus:border-transparent transition-all"
                 />
               </div>
@@ -75,6 +101,7 @@ export default function Login() {
                   Login
                 </Button>
               </div>
+              <p className="text-sm text-red-600 text-center">{errorMsg}</p>
             </form>
           </CardContent>
         </Card>

@@ -1,7 +1,31 @@
+'use client'
+import { useEffect, useState } from "react";
+import {useRouter} from 'next/navigation'
+import {supabase} from '@/lib/supabaseClient'
+import type {User} from '@supabase/supabase-js'
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+
+
 export default function SectionOne() {
+  const [user, setUser] = useState<User | null>(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {data} = await supabase.auth.getUser()
+      if(!data.user) router.push('/login')
+        else setUser(data.user)
+    }
+    getUser()
+  },[router])
+
+  const handleLogout = async () =>{
+    await supabase.auth.signOut()
+    router.push('/login')
+  }
   return (
     <main className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center lg:justify-start">
       <section className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 bg-[#EFEFEF] overflow-hidden">
