@@ -1,13 +1,9 @@
 'use client'
-import { useEffect, useState } from "react";
-import {useRouter} from 'next/navigation'
-import type {User} from '@supabase/supabase-js'
-
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function SectionOne() {
-  
+
   return (
     <main className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center lg:justify-start">
       <section className="relative pt-32 pb-16 lg:pt-32 lg:pb-24 bg-[#EFEFEF] overflow-hidden">
