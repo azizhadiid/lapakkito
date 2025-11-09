@@ -3,11 +3,11 @@ import {
   Mail,
   Phone,
   MapPin,
-  Instagram,
-  Twitter,
   Youtube,
   Globe,
 } from "lucide-react";
+import { FaInstagram } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
 
 // Komponen helper untuk link di footer
 function FooterLink({
@@ -70,9 +70,9 @@ export default function Footer() {
             <p className="text-sm">All rights reserved</p>
             {/* Ikon Sosial Media */}
             <div className="flex gap-4 mt-6">
-              <SocialIcon href="#" icon={Instagram} />
+              <SocialIcon href="#" icon={FaInstagram} />
               <SocialIcon href="#" icon={Globe} />
-              <SocialIcon href="#" icon={Twitter} />
+              <SocialIcon href="#" icon={BsTwitterX} />
               <SocialIcon href="#" icon={Youtube} />
             </div>
           </div>

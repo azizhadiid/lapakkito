@@ -1,98 +1,70 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
-import type { User } from "@supabase/supabase-js";
-
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
+  Sheet, SheetContent, SheetDescription,
   SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
-import { usePathname } from "next/navigation";
+  SheetTitle, SheetTrigger
+} from "@/components/ui/sheet"
+import { Menu } from "lucide-react"
+import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 
-export function Navbar() {
+export function NavbarAdmin() {
   const navItems = [
     { name: "Beranda", href: "/dashboard" },
-    { name: "Verifikasi", href: "/kelola-umkm" },
-  ];
+    { name: "Verifikasi", href: "/kelola-umkm" }
+  ]
 
   // state untuk melacak status scroll
-  const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
+
+  const logoutHref = "/login";
+  const isRegisterActive = pathname.startsWith(logoutHref);
 
   // useEffect untuk menambahkan event listener saat scroll
   useEffect(() => {
     const handleScroll = () => {
       // Jika scrollY > 10 piksel, set isScrolled menjadi true
       if (window.scrollY > 10) {
-        setIsScrolled(true);
+        setIsScrolled(true)
       } else {
-        setIsScrolled(false);
+        setIsScrolled(false)
       }
-    };
+    }
 
     // Tambahkan event listener
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll)
 
     // Cleanup: Hapus event listener saat komponen di-unmount
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const [user, setUser] = useState<User | null>(null);
-  const router = useRouter();
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (!data.user) router.push("/login");
-      else setUser(data.user);
-    };
-    getUser();
-  }, [router]);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/login");
-  };
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   return (
-    <nav
-      className={`
+    <nav className={`
                 fixed top-0 left-0 w-full z-50 transition-colors duration-300
-                ${
-                  isScrolled
-                    ? "bg-[#F7F6F6] shadow-md"
-                    : "bg-[#EFEFEF] lg:bg-transparent"
-                }
-            `}
-    >
+                ${isScrolled
+        ? 'bg-[#F7F6F6] shadow-md'
+        : 'bg-[#EFEFEF] lg:bg-transparent'
+      }
+            `}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
+
           <Link href="/" className="flex items-center gap-2">
-            <img
-              src="/images/logo.png"
-              alt="Lapak Kito Logo"
-              className="h-12 w-auto"
-            />
+            <img src="/images/logo.png" alt="Lapak Kito Logo" className="h-12 w-auto" />
           </Link>
 
           <div className="hidden lg:flex items-center gap-6">
             {navItems.map((item) => {
               // Cek apakah link ini sedang aktif
-              const isActive =
-                item.href === "/"
-                  ? pathname === item.href // Pencocokan persis untuk Beranda
-                  : pathname.startsWith(item.href); // Pencocokan 'startsWith' untuk link lain
+              const isActive = item.href === '/'
+                ? pathname === item.href // Pencocokan persis untuk Beranda
+                : pathname.startsWith(item.href); // Pencocokan 'startsWith' untuk link lain
 
               return (
                 <Link
@@ -112,31 +84,29 @@ export function Navbar() {
                                     after:transition-transform
                                     after:duration-300
                                     hover:after:scale-x-100
-                                    ${
-                                      isActive
-                                        ? "after:scale-x-100"
-                                        : "after:scale-x-0"
-                                    } 
+                                    ${isActive ? 'after:scale-x-100' : 'after:scale-x-0'} 
                                     `}
                 >
                   {item.name}
                 </Link>
-              );
+              )
             })}
           </div>
 
-          {user ? (
-            <div className="hidden lg:block">
-              <Button
-                onClick={handleLogout}
-                className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2 transition-all duration-200 ease-in-out hover:scale-105"
-              >
-                Log out
-              </Button>
-            </div>
-          ) : (
-            <p>Loading...</p>
-          )}
+          <div className="hidden lg:block">
+            <Button
+              asChild
+              className={`
+                                rounded-lg px-6 py-2 transition-all duration-200 ease-in-out hover:scale-105
+                                ${isRegisterActive
+                  ? 'bg-[#C9302C] text-zinc-100'
+                  : 'bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C]'
+                }
+                            `}
+            >
+              <Link href={logoutHref}>Logout</Link>
+            </Button>
+          </div>
 
           <div className="lg:hidden">
             <Sheet>
@@ -146,10 +116,7 @@ export function Navbar() {
                 </Button>
               </SheetTrigger>
 
-              <SheetContent
-                side="right"
-                className="w-[300px] sm:w-[400px] bg-[#F7F6F6]"
-              >
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#F7F6F6]">
                 {/* untuk mengatasi error pada console website */}
                 <SheetHeader className="sr-only">
                   <SheetTitle>Menu Utama</SheetTitle>
@@ -161,20 +128,15 @@ export function Navbar() {
 
                 <div className="flex flex-col h-full p-6">
                   <Link href="/" className="flex items-center mb-6">
-                    <img
-                      src="/images/logo-vertikal.png"
-                      alt="Lapak Kito Logo"
-                      className="h-10 w-auto"
-                    />
+                    <img src="/images/logo-vertikal.png" alt="Lapak Kito Logo" className="h-10 w-auto" />
                   </Link>
 
                   <div className="flex flex-col gap-4">
                     {navItems.map((item) => {
                       // Cek apakah link ini sedang aktif
-                      const isActive =
-                        item.href === "/"
-                          ? pathname === item.href // Pencocokan persis untuk Beranda
-                          : pathname.startsWith(item.href); // Pencocokan 'startsWith' untuk link lain
+                      const isActive = item.href === '/'
+                        ? pathname === item.href // Pencocokan persis untuk Beranda
+                        : pathname.startsWith(item.href); // Pencocokan 'startsWith' untuk link lain
 
                       return (
                         <Link
@@ -182,11 +144,10 @@ export function Navbar() {
                           href={item.href}
                           className={`
                                                         text-lg font-semibold transition-colors
-                                                        ${
-                                                          isActive
-                                                            ? "text-[#E65A4B]"
-                                                            : "text-yellow-950 hover:text-black"
-                                                        }
+                                                        ${isActive
+                              ? 'text-[#E65A4B]'
+                              : 'text-yellow-950 hover:text-black'
+                            }
         `}
                         >
                           {item.name}
@@ -195,22 +156,25 @@ export function Navbar() {
                     })}
                   </div>
 
-                  {user ? (
-                    <Button
-                      onClick={handleLogout}
-                      className="bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C] rounded-lg px-6 py-2 mt-auto transition-all duration-200 ease-in-out hover:scale-105"
-                    >
-                      Logout
-                    </Button>
-                  ) : (
-                    <p>Loading...</p>
-                  )}
+                  <Button
+                    asChild // <-- Tambahkan asChild
+                    className={`
+                                            rounded-lg px-6 py-2 mt-auto transition-all duration-200 ease-in-out hover:scale-105
+                                            ${isRegisterActive
+                        ? 'bg-[#C9302C] text-zinc-100' // State Aktif
+                        : 'bg-[#E65A4B] text-zinc-100 hover:bg-[#C9302C]' // State Normal
+                      }
+                                        `}
+                  >
+                    <Link href={logoutHref}>Logout</Link>
+                  </Button>
                 </div>
               </SheetContent>
             </Sheet>
           </div>
+
         </div>
       </div>
     </nav>
-  );
+  )
 }

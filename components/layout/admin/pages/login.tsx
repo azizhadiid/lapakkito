@@ -1,14 +1,13 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
-
-import React from "react";
 import Image from "next/image";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import IlsLogin from "@/public/iconlogin.svg";
 import Logo from "@/public/images/logo-vertikal.png";
+import Swal from "sweetalert2";
+import supabase from "@/lib/db";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,21 +16,56 @@ export default function Login() {
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
+    // Mencegah form reload halaman
     e.preventDefault();
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      if (error.message.includes("Invalid login credentials")) {
-        setErrorMsg("Email atau password salah. Coba lagi ya!");
-      } else if (error.message.includes("Email not confirmed")) {
-        setErrorMsg("Email kamu belum dikonfirmasi. Cek kotak masuk kamu!");
-      } else {
-        setErrorMsg("Terjadi kesalahan. Coba beberapa saat lagi.");
-      }
+    setErrorMsg("");
+
+    // Validasi input dasar
+    if (!email || !password) {
+      setErrorMsg("Email dan password tidak boleh kosong.");
       return;
-    } else router.push("/dashboard");
+    }
+
+    try {
+      const { data: users, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("email", email)
+        .eq("password", password);
+
+      if (error) {
+        console.error("Supabase error:", error.message);
+        setErrorMsg("Terjadi kesalahan pada server. Silakan coba lagi.");
+        return;
+      }
+
+      if (users && users.length > 0) {
+        console.log("Login berhasil:", users[0]);
+
+        Swal.fire({
+          title: "Berhasil!",
+          text: "Login berhasil, Anda akan diarahkan ke dashboard.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        // Tunggu sedikit agar SweetAlert tampil sebelum redirect
+        setTimeout(() => {
+          router.push("/dashboard"); // arahkan ke /dashboard
+        }, 1500);
+      } else {
+        Swal.fire({
+          title: "Login Gagal",
+          text: "Email atau password salah.",
+          icon: "warning",
+          confirmButtonColor: "#E65A4B",
+        });
+      }
+    } catch (err) {
+      console.error("Login exception:", err);
+      setErrorMsg("Terjadi kesalahan. Silakan coba lagi.");
+    }
   };
 
   return (
