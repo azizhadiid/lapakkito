@@ -33,7 +33,7 @@ export default function SelectionOne() {
         setResponseMessage('');
 
         try {
-            const response = await fetch('/api/send-email', {
+            const response = await fetch('/api/send-email-admin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
