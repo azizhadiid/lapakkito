@@ -1,7 +1,6 @@
 "use client"
 
 import { MainLayoutPengunjung } from "../MainLayoutPengunjung";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
     Carousel,
@@ -86,12 +85,9 @@ export default function DetailUMKMPage({ umkmData }: { umkmData: UmkmDataProps }
                                 <CarouselContent className="text-[#4E4039]">
                                     {umkmData.images.map((imgSrc, index) => (
                                         <CarouselItem key={index}>
-                                            <Image
+                                            <img
                                                 src={imgSrc}
                                                 alt={`${umkmData.name} - gambar ${index + 1}`}
-                                                width={800}
-                                                height={600}
-                                                priority={index === 0}
                                                 className="w-full h-auto aspect-[4/3] object-cover"
                                             />
                                         </CarouselItem>
