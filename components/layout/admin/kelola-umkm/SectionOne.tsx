@@ -173,7 +173,7 @@ export default function AdminPage() {
   // 🔹 Fungsi Navigasi
   // =====================
   const handlePreview = (id: string) => {
-    router.push(`/admin/kelola-umkm/${id}`);
+    router.push(`/kelola-umkm/${id}`);
   };
 
   // =====================
