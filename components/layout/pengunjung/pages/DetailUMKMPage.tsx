@@ -15,8 +15,10 @@ import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp, FaMotorcycle } from 'rea
 import { SiGojek, SiGrab, SiShopee } from 'react-icons/si';
 import {
     User, CalendarDays,
+    ArrowLeft,
 } from "lucide-react"
 import { LuStore } from 'react-icons/lu';
+import Link from "next/link";
 
 
 // Komponen Ikon Helper
@@ -72,6 +74,14 @@ export default function DetailUMKMPage({ umkmData }: { umkmData: UmkmDataProps }
         <MainLayoutPengunjung>
             <div className="bg-[#EFEFEF] py-24 md:py-32">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-10">
+
+                    <Link href="/umkm">
+                        <Button variant="outline" className="flex items-center gap-2 mb-4">
+                            <ArrowLeft className="w-4 h-4" />
+                            Kembali
+                        </Button>
+                    </Link>
+
 
                     {/* === SECTION ATAS (Galeri & Info) === */}
                     <div className="
