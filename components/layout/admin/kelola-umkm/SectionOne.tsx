@@ -98,7 +98,7 @@ export default function AdminPage() {
 
   // State untuk Paginasi
   const [currentPage, setCurrentPage] = useState(1);
-  const CARDS_PER_PAGE = 6; // Tentukan jumlah item per halaman
+  const CARDS_PER_PAGE = 6; 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,13 +137,13 @@ export default function AdminPage() {
       Swal.fire({
         icon: "error",
         title: "Gagal!",
-        text: "Gagal menyetujui konten. ❌",
+        text: "Gagal menyetujui konten.",
       });
     } else {
       // Notifikasi sukses yang lebih baik (auto-close)
       Swal.fire({
         icon: "success",
-        title: "UMKM Disetujui ✅",
+        title: "UMKM Disetujui",
         showConfirmButton: false,
         timer: 1500,
       });
