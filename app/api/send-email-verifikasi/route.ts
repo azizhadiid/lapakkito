@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 
   try {
     await transporter.sendMail({
-      from: `"Admin Verifikasi UMKM" <${process.env.EMAIL_USER}>`,
+      from: `"Admin Verifikasi Lapakkito" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       text: message,

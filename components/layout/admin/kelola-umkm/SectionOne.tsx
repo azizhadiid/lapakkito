@@ -10,8 +10,14 @@ import supabase from "@/lib/db";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import UmkmAdminSkeleton from "@/components/skeletons/UmkmAdminSkeleton";
-// 'UmkmCardData' tidak digunakan di komponen ini
-// import { UmkmCardData } from "@/lib/type";
+
+// ===================================
+// 🚀 IMPORT SWEETALERT2
+// ===================================
+import Swal from "sweetalert2";
+// CSS diimpor di globals.css untuk menghindari bug layout!
+// ===================================
+
 import {
   Pagination,
   PaginationContent,
@@ -117,57 +123,138 @@ export default function AdminPage() {
     fetchData();
   }, []);
 
-  // =====================
-  // 🔹 Fungsi Verifikasi & Tolak
-  // =====================
+  // ===========================================
+  // 🚀 FUNGSI HANDLE APPROVE (DIPERBARUI)
+  // ===========================================
   const handleApprove = async (id: string) => {
     const { error } = await supabase
       .from("umkm")
       .update({ status: true })
       .eq("id", id);
+      
     if (error) {
-      alert("Gagal menyetujui konten ❌");
+      // Notifikasi error yang lebih baik
+      Swal.fire({
+        icon: "error",
+        title: "Gagal!",
+        text: "Gagal menyetujui konten. ❌",
+      });
     } else {
-      alert("UMKM disetujui ✅");
+      // Notifikasi sukses yang lebih baik (auto-close)
+      Swal.fire({
+        icon: "success",
+        title: "UMKM Disetujui ✅",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       setUmkmList((prev) =>
         prev.map((u) => (u.id === id ? { ...u, status: true } : u))
       );
     }
   };
 
+  // ===========================================
+  // 🚀 FUNGSI HANDLE REJECT (DIPERBARUI) 🚀
+  // ===========================================
   const handleReject = async (id: string, email: string) => {
-    const reason = prompt("Masukkan alasan penolakan:");
-    if (!reason) return;
+    // 1. Tampilkan modal input alasan
+    const { value: reason } = await Swal.fire({
+      title: "Masukkan Alasan Penolakan",
+      input: "textarea",
+      inputPlaceholder: "Tuliskan alasan penolakan di sini...",
+      inputAttributes: {
+        "aria-label": "Tuliskan alasan penolakan di sini",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Tolak & Kirim Email",
+      cancelButtonText: "Batal",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      inputValidator: (value) => {
+        if (!value) {
+          return "Anda harus memasukkan alasan penolakan!";
+        }
+      },
+    });
 
-    try {
-      await fetch("/api/sendEmail", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          to: email,
-          subject: "Pengajuan UMKM Ditolak",
-          message: `Halo, pengajuan UMKM Anda ditolak karena alasan berikut:\n"${reason}"\nSilakan perbaiki data dan ajukan kembali.`,
-        }),
+    // 2. Jika user mengisi alasan dan menekan "Tolak"
+    //    SEMUA LOGIKA SEKARANG ADA DI DALAM BLOK INI
+    if (reason) {
+      // Tampilkan notifikasi loading
+      Swal.fire({
+        title: "Memproses...",
+        text: "Mengirim email dan menghapus data...",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
       });
-    } catch (emailError) {
-      console.error("Gagal mengirim email:", emailError);
-      alert("Gagal mengirim email notifikasi, tapi proses akan dilanjutkan.");
-    }
 
-    const { error } = await supabase
-      .from("umkm")
-      .update({ status: null }) // Ditolak
-      .eq("id", id);
+      let emailSentSuccessfully = false;
 
-    if (error) {
-      alert("Gagal menolak konten ❌");
-    } else {
-      alert("UMKM ditolak dan email telah dikirim 📧");
-      setUmkmList((prev) =>
-        prev.map((u) => (u.id === id ? { ...u, status: null } : u))
-      );
-    }
+      // --- 3. Kirim Email Notifikasi ---
+      try {
+        const response = await fetch("/api/send-email-verifikasi", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            to: email,
+            subject: "Pengajuan UMKM Ditolak",
+            message: `Halo, pengajuan UMKM Anda ditolak karena alasan berikut:\n"${reason}"\nData Anda telah dihapus dari sistem kami. Silakan mendaftar kembali dengan data yang sesuai.`,
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            emailSentSuccessfully = true;
+          } else {
+            console.error("API Gagal mengirim email:", data.error);
+          }
+        } else {
+          console.error("Gagal mengirim email, status server:", response.status);
+        }
+      } catch (emailError) {
+        console.error("Gagal mengirim email (network error):", emailError);
+      }
+
+      // --- 4. Hapus Data dari Database ---
+      const { error } = await supabase
+        .from("umkm")
+        .delete()
+        .eq("id", id);
+
+      if (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Gagal!",
+          text: "Gagal menghapus konten dari database. ❌",
+        });
+      } else {
+        // --- 5. Berikan notifikasi yang AKURAT ---
+        if (emailSentSuccessfully) {
+          Swal.fire({
+            icon: "success",
+            title: "Berhasil Ditolak!",
+            text: "Data UMKM telah dihapus dan email telah dikirim.",
+          });
+        } else {
+          Swal.fire({
+            icon: "warning",
+            title: "Data Dihapus, Tapi...",
+            text: "Data UMKM telah dihapus, TAPI email notifikasi GAGAL dikirim.",
+          });
+        }
+
+        // --- 6. Update state lokal untuk menghapus item dari UI ---
+        setUmkmList((prev) => prev.filter((u) => u.id !== id));
+      }
+    } // <-- AKHIR DARI BLOK 'if (reason)'
   };
+  // ===========================================
+  // 🚀 AKHIR DARI FUNGSI YANG DIPERBARUI 🚀
+  // ===========================================
+
 
   // =====================
   // 🔹 Fungsi Navigasi
@@ -179,8 +266,6 @@ export default function AdminPage() {
   // =====================
   // 🔹 Data Filtering (Optimized)
   // =====================
-  // 'useMemo' digunakan agar 'filteredData' hanya dihitung ulang
-  // jika dependensinya (umkmList, searchTerm, selectedCategory) berubah.
   const filteredData = useMemo(() => {
     return umkmList.filter(
       (u) =>
@@ -194,17 +279,12 @@ export default function AdminPage() {
   // =====================
   // 🔹 Logika Paginasi
   // =====================
-
-  // DIPERBAIKI: Reset ke halaman 1 setiap kali filter berubah
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, selectedCategory]);
 
-  // Total halaman dihitung dari 'filteredData'
   const totalPages = Math.ceil(filteredData.length / CARDS_PER_PAGE);
 
-  // 'useMemo' digunakan untuk menghitung data yang akan ditampilkan
-  // di halaman saat ini.
   const currentData = useMemo(() => {
     const firstDataIndex = (currentPage - 1) * CARDS_PER_PAGE;
     const lastDataIndex = firstDataIndex + CARDS_PER_PAGE;
@@ -220,20 +300,15 @@ export default function AdminPage() {
   // =====================
   // 🔹 Render JSX
   // =====================
-
-  // DIPERBAIKI: Gunakan state 'loading' yang benar
   if (loading) {
     return (
       <section className="py-16 md:py-24 bg-[#E2E0DD]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Menggunakan skeleton untuk UX loading yang lebih baik */}
           <UmkmAdminSkeleton />
         </div>
       </section>
     );
   }
-
-  // Hapus 'if (loading)' kedua yang duplikat
 
   return (
     <main className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center">
@@ -302,17 +377,17 @@ export default function AdminPage() {
             <TableHeader className="bg-gray-200">
               <TableRow>
                 <TableHead className="text-center font-bold">UMKM</TableHead>
-                <TableHead className="text-center font-bold">Kategori</TableHead>
+                <TableHead className="text-center font-bold">
+                  Kategori
+                </TableHead>
                 <TableHead className="text-center font-bold">Konten</TableHead>
-                <TableHead className="text-center font-bold">Verifikasi</TableHead>
+                <TableHead className="text-center font-bold">
+                  Verifikasi
+                </TableHead>
                 <TableHead className="text-center font-bold">Status</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {/* DIPERBAIKI: 
-                1. Cek 'filteredData.length' untuk tahu apakah ada data.
-                2. Map 'currentData' untuk menampilkan data halaman ini.
-              */}
               {filteredData.length > 0 ? (
                 currentData.map((u) => (
                   <TableRow key={u.id} className="hover:bg-gray-50">
@@ -366,10 +441,6 @@ export default function AdminPage() {
 
         {/* ====== RESPONSIVE MOBILE CARD VIEW ====== */}
         <section className="block lg:hidden mt-10 space-y-6 px-4">
-          {/* DIPERBAIKI: 
-            1. Cek 'filteredData.length' untuk tahu apakah ada data.
-            2. Map 'currentData' untuk menampilkan data halaman ini.
-          */}
           {filteredData.length > 0 ? (
             currentData.map((u) => (
               <div
@@ -419,7 +490,6 @@ export default function AdminPage() {
         </section>
 
         {/* ====== KOMPONEN PAGINASI ====== */}
-        {/* Ini akan muncul jika total halaman lebih dari 1 */}
         {totalPages > 1 && (
           <div className="mt-16">
             <Pagination>
@@ -443,7 +513,9 @@ export default function AdminPage() {
                       <PaginationLink
                         onClick={() => handlePageChange(page)}
                         isActive={currentPage === page}
-                        className={currentPage !== page ? "cursor-pointer" : ""}
+                        className={
+                          currentPage !== page ? "cursor-pointer" : ""
+                        }
                       >
                         {page}
                       </PaginationLink>
