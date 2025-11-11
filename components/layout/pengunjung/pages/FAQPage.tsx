@@ -9,23 +9,27 @@ const FAQPage = () => {
     const faqs = [
         {
             q: "Bagaimana cara mendaftar sebagai penjual?",
-            a: "Klik tombol Daftar, isi data yang diminta, lalu verifikasi email. Setelah terverifikasi, lengkapi profil toko dan mulai unggah produk."
+            a: "Klik tombol Register UMKM, isi data yang diminta. Jika selesai mengirim data, tunggu verifikasi dari admin."
         },
         {
-            q: "Bagaimana cara membeli produk?",
-            a: "Cari produk yang diinginkan, masukkan ke keranjang, lalu lanjutkan ke pembayaran. Pilih metode pembayaran yang tersedia dan konfirmasi."
+            q: "Bagaimana cara menghubungi penjual?",
+            a: "Cari produk yang diinginkan, klik hubungi atau klik sosial media yang tersedia."
         },
         {
-            q: "Apa metode pengiriman yang tersedia?",
-            a: "Kami mendukung beberapa kurir standar dan layanan pengiriman instan tergantung lokasi penjual dan pembeli."
+            q: "Apakah metode pemesanan tersedia?",
+            a: "Saat ini, platform kami hanya menyediakan informasi profil UMKM saja."
         },
         {
-            q: "Bagaimana jika saya ingin mengajukan pengembalian barang?",
-            a: "Ajukan permintaan pengembalian melalui halaman pesanan dalam menu akun, sertakan alasan dan foto bukti jika diperlukan."
+            q: "Bagaimana cara menghubungi admin?",
+            a: "Hubungi kami melalui email lapakkito10@gmail.com"
         },
         {
-            q: "Bagaimana cara menghubungi layanan pelanggan?",
-            a: "Gunakan fitur Chat Bantuan di halaman Bantuan atau kirim email ke support@lapakkito.example."
+            q: "Apakah ada biaya untuk mendaftar UMKM?",
+            a: "Tidak ada biaya. Pendaftaran UMKM di platform kami sepenuhnya gratis."
+        },
+        {
+            q: "Berapa lama proses verifikasi UMKM?",
+            a: "Proses verifikasi biasanya memakan waktu 1-2 hari kerja. Kami akan memberitahu Anda melalui email setelah proses selesai."
         }
     ];
 
