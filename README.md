@@ -149,11 +149,11 @@ Project ini membutuhkan beberapa kunci API untuk terhubung ke layanan eksternal 
 
 ### 👥 Tim Pengembang
 
-    | Nama | Peran | Fokus |
-    | :--- | :--- | :--- |
-    | Aziz Alhadiid | Project Lead. | Memanajemen proyek dan memimpin pembuatan proyek |
-    | Zikra Zana | UIUX Design and Front End | Membuat desain dan tampilan antar muka yang interaktif |
-    | Arfun Ali Yafie | Back End | Menerapkan sistem database pada website |
+| Nama | Peran | Fokus |
+| :--- | :--- | :--- |
+| Aziz Alhadiid | Project Lead. | Memanajemen proyek dan memimpin pembuatan proyek |
+| Zikra Zana | UIUX Design and Front End | Membuat desain dan tampilan antar muka yang interaktif |
+| Arfun Ali Yafie | Back End | Menerapkan sistem database pada website |
 
 ---
 
@@ -165,15 +165,25 @@ Untuk pemahaman yang lebih baik tentang proyek kami, silakan tonton video demo d
 
 ---
 
+---
+
+## 🔐 Simulasi Akun Admin
+
+Untuk keperluan demo dan penilaian, Anda dapat mencoba fitur Dashboard Admin menggunakan akun simulasi berikut
+
+| Akses Akun Admin | Keterangan | 
+| :--- | :--- | 
+| URL Login | https://lapakkito.vercel.app/login | 
+| Username / Email | admin@gmail.com | 
+| Password | admin#123 | 
+
+---
+
 ## 🖥️ Tampilan Website (Live Demo)
 
 Anda dapat mencoba aplikasi kami secara langsung melalui tautan berikut:
 
 [**➡️ Kunjungi Website Live**](https://lapakkito.vercel.app/)
-
-Bagian untuk login admin:
-username: admin@gmail.com
-password: admin#123
 
 ### Pratinjau (Preview)
 
