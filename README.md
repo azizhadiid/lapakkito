@@ -4,6 +4,26 @@ Lapak Kito adalah platform direktori digital yang didedikasikan untuk mempromosi
 
 ---
 
+# 🎯 Tujuan & Dampak
+
+* ✅ Membangun Etalase Digital
+* ✅ Meningkatkan Visibilitas
+* ✅ Menjadi Pusat Informasi
+
+---
+
+# 🧩 Fitur Utama
+
+* ✅ Register UMKM - Bagi pelaku UMKM bisa melakukan pendaftaran terhadap usahanya di website.
+* ✅ Upload Konten (Foto) - Pelaku UMKM bisa mengupload konten foto mereka di website.
+* ✅ Search UMKM - Pengguna bisa mencari UMKM sesuai dengan kategori yang tersedia.
+* ✅ Integrasi dengan Website UMKM - Adanya linked dengan UMKM yang telah memiliki website sendiri.
+* ✅ Integrasi MAPS - Pengguna bisa melihat lokasi UMKM yang terintergrasi dengan maps.
+* ✅ Login Admin - Admin dapat login kedalam sistem.
+* ✅ Verifikasi Konten oleh UMKM - Admin dapat memverifikasi konten yang diupload oleh pelaku UMKM.
+
+---
+
 ## 🚀 Tech Stack
 
 Project ini dibangun menggunakan teknologi web modern untuk memastikan performa, skalabilitas, dan pengalaman developer yang baik.
@@ -64,6 +84,12 @@ Project ini membutuhkan beberapa kunci API untuk terhubung ke layanan eksternal 
     | :--- | :--- | :--- |
     | `NEXT_PUBLIC_SUPABASE_URL` | URL publik untuk proyek Supabase Anda. | `https://[nama-proyek-anda].supabase.co` |
     | `NEXT_PUBLIC_SUPABASE_ANON_KEY`| Kunci `anon` (publik) untuk proyek Supabase Anda. | `ey...[kunci-panjang]...` |
+    | `EMAIL_HOST` | Host server email yang digunakan untuk mengirim pesan. | `smtp.gmail.com` |
+    | `EMAIL_PORT` | Port server email yang digunakan untuk koneksi. | `465` |
+    | `EMAIL_SECURE` | Gunakan true jika koneksi email menggunakan SSL/TLS. | `true` |
+    | `EMAIL_USER` | Alamat email yang digunakan untuk mengirim pesan. | `namaemail@gmail.com` |
+    | `EMAIL_PASS` | Kata sandi atau app password dari email pengirim. | `password-anda` |
+    | `ADMIN_EMAIL` | Alamat email admin yang akan menerima notifikasi. | `admin@domain.com` |
 
 ---
 
@@ -121,42 +147,40 @@ Project ini membutuhkan beberapa kunci API untuk terhubung ke layanan eksternal 
 ```
 ---
 
-## 📊 Progress Saat Ini
+### 👥 Tim Pengembang
 
-Proyek ini masih dalam tahap pengembangan aktif. Fitur yang sudah berhasil diimplementasikan:
+    | Nama | Peran | Fokus |
+    | :--- | :--- | :--- |
+    | Aziz Alhadiid | Project Lead. | Memanajemen proyek dan memimpin pembuatan proyek |
+    | Zikra Zana | UIUX Design and Front End | Membuat desain dan tampilan antar muka yang interaktif |
+    | Arfun Ali Yafie | Back End | Menerapkan sistem database pada website |
 
-1. **Halaman Beranda (Landing Page):**
+---
 
-    ![Halaman Beranda](/public/images/screenshot/ss1.png)
-    * Hero Section dengan animasi.
-    * Section "Bagaimana ini Bekerja".
-    * Section "UMKM tersedia saat ini" (menggunakan `Suspense` dan `Skeleton`).
-    * Section "Testimonial".
-    * Footer lengkap.
+## 🎥 Demo & Video Pitching
 
-2. **Halaman Direktori UMKM (`/umkm`):**
+Untuk pemahaman yang lebih baik tentang proyek kami, silakan tonton video demo dan presentasi pitching kami.
 
-    ![Halaman UMKM](/public/images/screenshot/ss2.png)
-    * Hero Section dengan search bar dan filter kategori.
-    * Daftar UMKM lengkap dengan layout grid responsif.
-    * Komponen Pagination.
+[**➡️ Tonton Video Demo & Pitching di YouTube**](https://youtu.be/_56qK9zg_CQ)
 
-3. **Halaman Direktori FAQ (`/faq`):**
+---
 
-    ![Halaman FAQ](/public/images/screenshot/ss3.png)
-    * Hero Section dengan title dan text.
-    * Daftar FAQ yang sering ditanyakan pada website.
+## 🖥️ Tampilan Website (Live Demo)
 
-4. **Halaman Detail UMKM (`/umkm/[id]`):**
+Anda dapat mencoba aplikasi kami secara langsung melalui tautan berikut:
 
-    ![Halaman Detail UMKM](/public/images/screenshot/ss4.png)
-    * Layout 2 kolom (Galeri & Info).
-    * Carousel gambar produk.
-    * Info detail (Nama, Kategori, Pemilik, Deskripsi).
-    * Link Sosial Media & Pesan Online.
-    * Embed Google Maps.
-    * **Loading State:** Implementasi `loading.tsx` untuk menampilkan skeleton saat data diambil.
+[**➡️ Kunjungi Website Live**](https://lapakkito.vercel.app/)
 
-5. **Desain Responsif:** Seluruh halaman telah disesuaikan untuk perangkat mobile, tablet, dan desktop.
+Bagian untuk login admin:
+username: admin@gmail.com
+password: admin#123
+
+### Pratinjau (Preview)
+
+Berikut adalah beberapa tampilan utama dari website kami. Klik pada gambar untuk mengunjungi halaman live.
+
+| Halaman Utama (Beranda) | Halaman Directory UMKM | Halaman Registrasi UMKM |
+| :---: | :---: | :---: |
+| [![Pratinjau Beranda](/public/images/screenshot/ss1.png)](https://lapakkito.vercel.app/) | [![Pratinjau Halaman Directory UMKM](/public/images/screenshot/ss2.png)](https://lapakkito.vercel.app/umkm) | [![Pratinjau Registrasi UMKM](/public/images/screenshot/ss5.png)](https://lapakkito.vercel.app/register-umkm) |
 
 ---
